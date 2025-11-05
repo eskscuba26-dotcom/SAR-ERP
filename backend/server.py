@@ -339,7 +339,7 @@ class ProductionCostAnalysis(BaseModel):
     allocated_estol: float
     allocated_talk: float
     gas_share: float
-    masura_type: str
+    masura_type: Optional[str] = None
     masura_quantity: int
     petkim_cost: float
     estol_cost: float
