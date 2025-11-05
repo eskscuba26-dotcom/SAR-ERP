@@ -20,18 +20,24 @@ export default function LoginPage({ setUser }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log('🔐 Login başladı...', loginData);
     setLoading(true);
     try {
+      console.log('📡 API çağrısı yapılıyor:', `${API}/auth/login`);
       const response = await axios.post(`${API}/auth/login`, loginData);
+      console.log('✅ API yanıtı alındı:', response.data);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       setUser(response.data.user);
       toast.success('Giriş başarılı!');
+      console.log('🚀 Navigate ediliyor...');
       navigate('/');
     } catch (error) {
+      console.error('❌ Login hatası:', error);
       toast.error(error.response?.data?.detail || 'Giriş başarısız');
     } finally {
       setLoading(false);
+      console.log('🏁 Login işlemi tamamlandı');
     }
   };
 
