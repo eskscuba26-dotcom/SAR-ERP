@@ -141,21 +141,6 @@ export default function ProfilePage() {
               />
             </div>
 
-            <div>
-              <Label htmlFor="email" className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                E-posta
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="E-posta adresinizi girin"
-                required
-              />
-            </div>
-
             <div className="pt-4 border-t">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <Lock className="h-5 w-5" />
