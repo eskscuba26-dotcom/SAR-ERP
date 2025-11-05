@@ -19,7 +19,6 @@ export default function UserManagement() {
   const [currentUser, setCurrentUser] = useState(null);
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
     password: '',
     role: 'viewer'
   });
