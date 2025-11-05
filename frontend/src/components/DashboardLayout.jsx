@@ -46,9 +46,13 @@ export default function DashboardLayout({ children, user }) {
     { path: '/cost-analysis', icon: BarChart3, label: 'Maliyet Analizi' },
   ];
 
+  // Admin menüleri
   if (user?.role === 'admin') {
-    menuItems.push({ path: '/users', icon: Users, label: 'Kullanıcılar' });
+    menuItems.push({ path: '/user-management', icon: UserCog, label: 'Kullanıcı Yönetimi' });
   }
+  
+  // Profil menüsü (herkes için)
+  menuItems.push({ path: '/profile', icon: UserIcon, label: 'Profil Ayarları' });
 
   return (
     <div className="flex h-screen bg-gray-50">
