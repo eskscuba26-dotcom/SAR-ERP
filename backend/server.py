@@ -59,7 +59,7 @@ async def create_status_check(input: StatusCheckCreate):
         doc = status_obj.model_dump()
         doc['timestamp'] = doc['timestamp'].isoformat()
         
-        result = await db.status_checks.insert_one(doc)
+        await db.status_checks.insert_one(doc)
         logger.info(f"Status check created with id: {status_obj.id}")
         return status_obj
     except Exception as e:
