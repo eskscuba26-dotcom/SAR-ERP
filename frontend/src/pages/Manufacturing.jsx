@@ -646,7 +646,7 @@ export default function Manufacturing({ user }) {
                 ))}
               </tbody>
             </table>
-            {records.length === 0 && (
+            {filteredRecords.length === 0 && (
               <div className="text-center py-8 text-gray-500">
                 Henüz üretim kaydı bulunmuyor.
               </div>
