@@ -1319,7 +1319,7 @@ async def get_production_cost_analysis(current_user = Depends(get_current_user))
         gas_cost = gas_share * gaz_price
         
         # Masura maliyeti
-        masura_type = mfg.get('masura_type', '')
+        masura_type = mfg.get('masura_type') or 'Masura 100'
         masura_qty = mfg.get('masura_quantity', 0)
         masura_price = material_map.get(masura_type, {}).get('unit_price', 0)
         masura_cost = masura_qty * masura_price
