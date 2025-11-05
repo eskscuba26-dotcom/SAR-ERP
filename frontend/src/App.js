@@ -10,9 +10,13 @@ const Home = () => {
   const helloWorldApi = async () => {
     try {
       const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
+      console.log('✅ Backend API Response:', response.data.message);
     } catch (e) {
-      console.error(e, `errored out requesting / api`);
+      console.error('❌ API Error:', e.message);
+      if (e.response) {
+        console.error('Response status:', e.response.status);
+        console.error('Response data:', e.response.data);
+      }
     }
   };
 
