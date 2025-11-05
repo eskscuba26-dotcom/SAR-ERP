@@ -63,8 +63,8 @@ export default function UserManagement() {
   };
 
   const handleEditUser = async () => {
-    if (!formData.username || !formData.email) {
-      toast.error('Lütfen tüm alanları doldurun');
+    if (!formData.username) {
+      toast.error('Lütfen kullanıcı adını girin');
       return;
     }
 
@@ -72,7 +72,6 @@ export default function UserManagement() {
       const token = localStorage.getItem('token');
       const updateData = {
         username: formData.username,
-        email: formData.email,
         role: formData.role
       };
       
@@ -87,7 +86,7 @@ export default function UserManagement() {
       toast.success('Kullanıcı güncellendi');
       setShowEditDialog(false);
       setCurrentUser(null);
-      setFormData({ username: '', email: '', password: '', role: 'viewer' });
+      setFormData({ username: '', password: '', role: 'viewer' });
       fetchUsers();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Kullanıcı güncellenemedi');
