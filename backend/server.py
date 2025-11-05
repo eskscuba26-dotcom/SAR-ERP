@@ -1771,6 +1771,72 @@ async def get_stock(current_user = Depends(get_current_user)):
 
 # User management endpoints added above
 
+# Exchange Rate Management (Admin Only)
+@api_router.get("/exchange-rates")
+async def get_exchange_rates(current_user = Depends(get_current_user)):
+    """Güncel döviz kurlarını getir"""
+    rates = await db.exchange_rates.find({}, {"_id": 0}).to_list(10)
+    
+    # Eğer kur yoksa varsayılan değerler döndür
+    if not rates:
+        return {
+            "USD": {"rate": 32.50, "updated_at": datetime.now(timezone.utc).isoformat(), "updated_by": "system"},
+            "EUR": {"rate": 35.00, "updated_at": datetime.now(timezone.utc).isoformat(), "updated_by": "system"}
+        }
+    
+    # Kurları currency bazında düzenle
+    result = {}
+    for rate in rates:
+        result[rate['currency']] = {
+            "rate": rate['rate'],
+            "updated_at": rate['updated_at'] if isinstance(rate['updated_at'], str) else rate['updated_at'].isoformat(),
+            "updated_by": rate.get('updated_by', 'system')
+        }
+    
+    return result
+
+@api_router.put("/exchange-rates")
+async def update_exchange_rates(rates: ExchangeRateUpdate, admin_user = Depends(get_admin_user)):
+    """Döviz kurlarını güncelle (Sadece Admin)"""
+    
+    # USD kurunu güncelle
+    usd_rate = {
+        "id": str(uuid.uuid4()),
+        "currency": "USD",
+        "rate": rates.usd_rate,
+        "updated_by": admin_user['username'],
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.exchange_rates.update_one(
+        {"currency": "USD"},
+        {"$set": usd_rate},
+        upsert=True
+    )
+    
+    # EUR kurunu güncelle
+    eur_rate = {
+        "id": str(uuid.uuid4()),
+        "currency": "EUR",
+        "rate": rates.eur_rate,
+        "updated_by": admin_user['username'],
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.exchange_rates.update_one(
+        {"currency": "EUR"},
+        {"$set": eur_rate},
+        upsert=True
+    )
+    
+    logger.info(f"Admin {admin_user['username']} updated exchange rates: USD={rates.usd_rate}, EUR={rates.eur_rate}")
+    
+    return {
+        "message": "Kurlar güncellendi",
+        "USD": rates.usd_rate,
+        "EUR": rates.eur_rate
+    }
+
 # Include router
 app.include_router(api_router)
 
