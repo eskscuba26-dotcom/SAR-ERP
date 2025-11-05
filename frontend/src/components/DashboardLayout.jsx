@@ -50,6 +50,7 @@ export default function DashboardLayout({ children, user }) {
   // Admin menüleri
   if (user?.role === 'admin') {
     menuItems.push({ path: '/user-management', icon: UserCog, label: 'Kullanıcı Yönetimi' });
+    menuItems.push({ path: '/exchange-rates', icon: Banknote, label: 'Döviz Kurları' });
   }
   
   // Profil menüsü (herkes için)
