@@ -68,15 +68,20 @@ async def create_status_check(input: StatusCheckCreate):
 
 @api_router.get("/status", response_model=List[StatusCheck])
 async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+    try:
+        # Exclude MongoDB's _id field from the query results
+        status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
+        
+        # Convert ISO string timestamps back to datetime objects
+        for check in status_checks:
+            if isinstance(check['timestamp'], str):
+                check['timestamp'] = datetime.fromisoformat(check['timestamp'])
+        
+        logger.info(f"Retrieved {len(status_checks)} status checks")
+        return status_checks
+    except Exception as e:
+        logger.error(f"Error retrieving status checks: {str(e)}")
+        raise
 
 # Include the router in the main app
 app.include_router(api_router)
