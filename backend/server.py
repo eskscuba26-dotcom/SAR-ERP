@@ -1757,18 +1757,6 @@ async def get_stock(current_user = Depends(get_current_user)):
     
     return result
 
-# User Management Routes
-@api_router.get("/users", response_model=List[User])
-async def get_users(current_user = Depends(get_current_user)):
-    if current_user['role'] != 'admin':
-        raise HTTPException(status_code=403, detail="Admin access required")
-    
-    users = await db.users.find({}, {"_id": 0, "password": 0}).to_list(1000)
-    for user in users:
-        if isinstance(user['created_at'], str):
-            user['created_at'] = datetime.fromisoformat(user['created_at'])
-    return users
-
 # User management endpoints added above
 
 # Include router
