@@ -67,19 +67,19 @@ export default function DashboardLayout({ children, user }) {
       >
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            {sidebarOpen && (
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-black text-lg" style={{ fontFamily: 'Space Grotesk', letterSpacing: '0.05em' }}>
-                    SAR
-                  </span>
-                </div>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-black text-sm" style={{ fontFamily: 'Space Grotesk', letterSpacing: '0.05em' }}>
+                  SAR
+                </span>
+              </div>
+              {sidebarOpen && (
                 <div>
                   <h1 className="font-bold text-lg" style={{ fontFamily: 'Space Grotesk' }}>SAR</h1>
                   <p className="text-xs text-gray-500">İmalat Sistemi</p>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
             <Button
               variant="ghost"
               size="icon"
