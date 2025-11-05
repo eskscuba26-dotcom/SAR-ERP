@@ -70,10 +70,12 @@ export default function DashboardLayout({ children, user }) {
             {sidebarOpen && (
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-                  <Factory className="w-6 h-6 text-white" />
+                  <span className="text-white font-black text-lg" style={{ fontFamily: 'Space Grotesk', letterSpacing: '0.05em' }}>
+                    SAR
+                  </span>
                 </div>
                 <div>
-                  <h1 className="font-bold text-lg" style={{ fontFamily: 'Space Grotesk' }}>ERP</h1>
+                  <h1 className="font-bold text-lg" style={{ fontFamily: 'Space Grotesk' }}>SAR</h1>
                   <p className="text-xs text-gray-500">İmalat Sistemi</p>
                 </div>
               </div>
