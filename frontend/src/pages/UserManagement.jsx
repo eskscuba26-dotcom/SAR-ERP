@@ -229,16 +229,6 @@ export default function UserManagement() {
               />
             </div>
             <div>
-              <Label htmlFor="email">E-posta</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="E-posta adresini girin"
-              />
-            </div>
-            <div>
               <Label htmlFor="password">Şifre</Label>
               <Input
                 id="password"
