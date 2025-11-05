@@ -19,6 +19,8 @@ import MaterialEntries from "@/pages/MaterialEntries";
 import CutProduction from "@/pages/CutProduction";
 import CostAnalysis from "@/pages/CostAnalysis";
 import Users from "@/pages/Users";
+import UserManagement from "@/pages/UserManagement";
+import ProfilePage from "@/pages/ProfilePage";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
