@@ -509,12 +509,12 @@ export default function Manufacturing({ user }) {
               </div>
               <div>
                 <Label>Kalınlık (mm)</Label>
-                <Select value={filters.thickness} onValueChange={(value) => setFilters({...filters, thickness: value})}>
+                <Select value={filters.thickness || "all"} onValueChange={(value) => setFilters({...filters, thickness: value === "all" ? "" : value})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Tümü" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Tümü</SelectItem>
+                    <SelectItem value="all">Tümü</SelectItem>
                     <SelectItem value="0.8">0.8</SelectItem>
                     <SelectItem value="1">1</SelectItem>
                     <SelectItem value="1.8">1.8</SelectItem>
