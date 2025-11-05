@@ -60,10 +60,8 @@ export default function LoginPage({ setUser }) {
     <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
       <div className="w-full max-w-md fade-in">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-2xl shadow-lg mb-4">
-            <div className="text-5xl font-black text-indigo-600" style={{ fontFamily: 'Space Grotesk', letterSpacing: '0.1em' }}>
-              SAR
-            </div>
+          <div className="inline-flex items-center justify-center w-32 h-32 bg-white rounded-2xl shadow-lg mb-4 p-4">
+            <img src="/sar-logo.png" alt="SAR Logo" className="w-full h-full object-contain" />
           </div>
           <h1 className="text-4xl font-bold text-white mb-2" style={{ fontFamily: 'Space Grotesk' }}>SAR Sistem</h1>
           <p className="text-indigo-100">İmalat Yönetim Platformu</p>
