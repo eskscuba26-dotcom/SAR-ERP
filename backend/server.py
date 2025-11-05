@@ -379,6 +379,16 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     except:
         raise HTTPException(status_code=401, detail="Invalid authentication")
 
+async def get_admin_user(current_user = Depends(get_current_user)):
+    """Sadece admin yetkisi kontrolü"""
+    if current_user.get('role') != 'admin':
+        raise HTTPException(status_code=403, detail="Admin yetkisi gerekli")
+    return current_user
+
+def is_admin(user):
+    """Kullanıcının admin olup olmadığını kontrol et"""
+    return user.get('role') == 'admin'
+
 # Auth Routes
 @api_router.post("/auth/register", response_model=User)
 async def register(user_data: UserCreate):
