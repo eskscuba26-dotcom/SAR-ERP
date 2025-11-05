@@ -68,10 +68,8 @@ export default function DashboardLayout({ children, user }) {
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-black text-sm" style={{ fontFamily: 'Space Grotesk', letterSpacing: '0.05em' }}>
-                  SAR
-                </span>
+              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 shadow-md">
+                <img src="/sar-logo.png" alt="SAR Logo" className="w-full h-full object-contain" />
               </div>
               {sidebarOpen && (
                 <div>
