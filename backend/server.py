@@ -1280,7 +1280,10 @@ async def get_production_cost_analysis(current_user = Depends(get_current_user))
         # Tarih ve makine bilgisi
         prod_date_str = mfg.get('production_date', '')
         if isinstance(prod_date_str, str):
-            date_only = prod_date_str[:10]
+            # ISO string'i datetime'a çevir ve sadece tarihi al
+            from datetime import datetime
+            dt = datetime.fromisoformat(prod_date_str.replace('Z', '+00:00'))
+            date_only = dt.strftime('%Y-%m-%d')
         else:
             date_only = prod_date_str.strftime('%Y-%m-%d')
         
