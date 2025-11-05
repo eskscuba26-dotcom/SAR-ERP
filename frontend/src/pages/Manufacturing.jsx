@@ -464,6 +464,110 @@ export default function Manufacturing({ user }) {
         )}
       </div>
 
+      {showFilters && (
+        <Card className="border-indigo-200 bg-indigo-50">
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-lg">Filtreler</CardTitle>
+              <Button variant="ghost" size="sm" onClick={clearFilters}>
+                <X className="h-4 w-4 mr-1" />
+                Temizle
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              <div>
+                <Label>Başlangıç Tarihi</Label>
+                <Input
+                  type="date"
+                  value={filters.startDate}
+                  onChange={(e) => setFilters({...filters, startDate: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Bitiş Tarihi</Label>
+                <Input
+                  type="date"
+                  value={filters.endDate}
+                  onChange={(e) => setFilters({...filters, endDate: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Makine</Label>
+                <Select value={filters.machine} onValueChange={(value) => setFilters({...filters, machine: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Tümü" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">Tümü</SelectItem>
+                    <SelectItem value="Makine 1">Makine 1</SelectItem>
+                    <SelectItem value="Makine 2">Makine 2</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Kalınlık (mm)</Label>
+                <Select value={filters.thickness} onValueChange={(value) => setFilters({...filters, thickness: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Tümü" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">Tümü</SelectItem>
+                    <SelectItem value="0.8">0.8</SelectItem>
+                    <SelectItem value="1">1</SelectItem>
+                    <SelectItem value="1.8">1.8</SelectItem>
+                    <SelectItem value="2">2</SelectItem>
+                    <SelectItem value="3">3</SelectItem>
+                    <SelectItem value="4">4</SelectItem>
+                    <SelectItem value="5">5</SelectItem>
+                    <SelectItem value="7">7</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>En (cm)</Label>
+                <Select value={filters.width} onValueChange={(value) => setFilters({...filters, width: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Tümü" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">Tümü</SelectItem>
+                    <SelectItem value="100">100</SelectItem>
+                    <SelectItem value="110">110</SelectItem>
+                    <SelectItem value="120">120</SelectItem>
+                    <SelectItem value="140">140</SelectItem>
+                    <SelectItem value="150">150</SelectItem>
+                    <SelectItem value="160">160</SelectItem>
+                    <SelectItem value="165">165</SelectItem>
+                    <SelectItem value="200">200</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Renk</Label>
+                <Select value={filters.color} onValueChange={(value) => setFilters({...filters, color: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Tümü" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">Tümü</SelectItem>
+                    {colors.map((color) => (
+                      <SelectItem key={color.id} value={color.id}>
+                        {color.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="mt-3 text-sm text-indigo-700">
+              Toplam {filteredRecords.length} kayıt gösteriliyor
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <div className="overflow-x-auto">
         <Card>
           <CardHeader>
