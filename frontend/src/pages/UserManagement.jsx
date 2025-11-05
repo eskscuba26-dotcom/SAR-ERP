@@ -114,7 +114,6 @@ export default function UserManagement() {
     setCurrentUser(user);
     setFormData({
       username: user.username,
-      email: user.email,
       password: '',
       role: user.role
     });
