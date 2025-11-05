@@ -1391,8 +1391,62 @@ async def get_production_cost_analysis(current_user = Depends(get_current_user))
     # Günlük tüketimleri al  
     daily_consumptions = await db.daily_consumptions.find({}, {"_id": 0}).to_list(1000)
     
-    # Hammaddeleri al
+    # Güncel döviz kurlarını al
+    exchange_rates = {}
+    rates_data = await db.exchange_rates.find({}, {"_id": 0}).to_list(10)
+    for rate in rates_data:
+        exchange_rates[rate['currency']] = rate['rate']
+    
+    # Varsayılan kurlar
+    if 'USD' not in exchange_rates:
+        exchange_rates['USD'] = 32.50
+    if 'EUR' not in exchange_rates:
+        exchange_rates['EUR'] = 35.00
+    
+    # Hammaddeleri al ve birim fiyatlarını güncel kurla hesapla
     materials = await db.raw_materials.find({}, {"_id": 0}).to_list(1000)
+    
+    # Her hammadde için en son girişleri al ve ağırlıklı ortalama fiyat hesapla
+    material_entries = await db.material_entries.find({}, {"_id": 0}).to_list(10000)
+    
+    # Hammadde bazında fiyat hesapla
+    material_prices = {}
+    for material in materials:
+        mat_name = material['name']
+        
+        # Bu hammaddeye ait girişleri bul
+        mat_entries = [e for e in material_entries if e.get('material_name') == mat_name]
+        
+        if mat_entries:
+            # Ağırlıklı ortalama hesapla
+            total_quantity = 0
+            total_cost_tl = 0
+            
+            for entry in mat_entries:
+                qty = entry.get('quantity', 0)
+                unit_price = entry.get('unit_price', 0)
+                currency = entry.get('currency', 'TRY')
+                
+                # Döviz cinsinden ise TL'ye çevir
+                if currency == 'USD':
+                    unit_price_tl = unit_price * exchange_rates['USD']
+                elif currency == 'EUR':
+                    unit_price_tl = unit_price * exchange_rates['EUR']
+                else:  # TRY
+                    unit_price_tl = unit_price
+                
+                total_quantity += qty
+                total_cost_tl += qty * unit_price_tl
+            
+            # Ağırlıklı ortalama birim fiyat
+            if total_quantity > 0:
+                material_prices[mat_name] = total_cost_tl / total_quantity
+            else:
+                material_prices[mat_name] = material.get('unit_price', 0)
+        else:
+            # Giriş yoksa raw_materials'deki fiyatı kullan
+            material_prices[mat_name] = material.get('unit_price', 0)
+    
     material_map = {m['name']: m for m in materials}
     
     # Günlük tüketimleri tarih+makine bazında grupla
