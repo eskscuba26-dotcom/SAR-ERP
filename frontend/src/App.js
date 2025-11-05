@@ -98,6 +98,7 @@ function App() {
                     <Route path="/user-management" element={<UserManagement />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/exchange-rates" element={<ExchangeRates />} />
+                    <Route path="/reports" element={<Reports />} />
                   </Routes>
                 </DashboardLayout>
               </ProtectedRoute>
