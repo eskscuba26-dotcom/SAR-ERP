@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DollarSign, TrendingUp, Package } from 'lucide-react';
 
-export default function ProductionCostAnalysis() {
+export default function CostAnalysis() {
   const [costData, setCostData] = useState([]);
   const [loading, setLoading] = useState(true);
 
