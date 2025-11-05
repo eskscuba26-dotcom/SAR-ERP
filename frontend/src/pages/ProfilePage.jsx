@@ -102,7 +102,6 @@ export default function ProfilePage() {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{profile?.username}</h2>
-              <p className="text-white/80">{profile?.email}</p>
               <div className="mt-2">
                 {profile?.role === 'admin' ? (
                   <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-white/20">
