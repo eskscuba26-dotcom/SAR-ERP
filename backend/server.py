@@ -1212,27 +1212,6 @@ async def delete_cut_production(record_id: str, current_user = Depends(get_curre
     
     return {"message": "Cut production record deleted successfully"}
 
-    material = await db.raw_materials.find_one({"id": entry_data.material_id})
-    
-    updated_entry = MaterialEntry(
-        id=entry_id,
-        **entry_data.model_dump(),
-        material_name=material['name'],
-        created_by=existing['created_by'],
-        created_at=datetime.fromisoformat(existing['created_at']) if isinstance(existing['created_at'], str) else existing['created_at']
-    )
-    
-    doc = updated_entry.model_dump()
-    doc['created_at'] = doc['created_at'].isoformat()
-    doc['entry_date'] = doc['entry_date'].isoformat()
-    
-    await db.material_entries.update_one(
-        {"id": entry_id},
-        {"$set": doc}
-    )
-    
-    return updated_entry
-
 @api_router.delete("/material-entries/{entry_id}")
 async def delete_material_entry(entry_id: str, current_user = Depends(get_current_user)):
     if current_user['role'] not in ['admin', 'user']:
