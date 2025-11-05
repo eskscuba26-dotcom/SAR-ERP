@@ -51,8 +51,7 @@ export default function ProfilePage() {
     try {
       const token = localStorage.getItem('token');
       const updateData = {
-        username: formData.username,
-        email: formData.email
+        username: formData.username
       };
 
       // Şifre varsa ekle
@@ -67,7 +66,6 @@ export default function ProfilePage() {
       // LocalStorage'daki user bilgisini güncelle
       const user = JSON.parse(localStorage.getItem('user'));
       user.username = response.data.username;
-      user.email = response.data.email;
       localStorage.setItem('user', JSON.stringify(user));
 
       toast.success('Profil güncellendi');
