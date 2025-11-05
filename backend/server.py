@@ -324,6 +324,32 @@ class CostAnalysis(BaseModel):
     total_quantity: float
     total_cost: float
 
+class ProductionCostAnalysis(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    production_id: str
+    row_number: int
+    date: str
+    machine: str
+    thickness_mm: float
+    width_cm: float
+    length_m: float
+    quantity: int
+    square_meters: float
+    allocated_petkim: float
+    allocated_estol: float
+    allocated_talk: float
+    gas_share: float
+    masura_type: str
+    masura_quantity: int
+    petkim_cost: float
+    estol_cost: float
+    talk_cost: float
+    gas_cost: float
+    masura_cost: float
+    total_cost: float
+    cost_per_sqm: float
+    cost_per_unit: float
+
 class DashboardStats(BaseModel):
     total_raw_materials: int
     total_stock_models: int  # Ürün çeşidi (stokta kaç farklı model)
