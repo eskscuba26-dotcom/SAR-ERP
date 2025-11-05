@@ -1255,8 +1255,11 @@ async def get_cost_analysis(current_user = Depends(get_current_user)):
 async def get_production_cost_analysis(current_user = Depends(get_current_user)):
     """Üretim bazında detaylı maliyet analizi"""
     
-    # Üretim kayıtlarını al
-    manufacturing = await db.manufacturing_records.find({}, {"_id": 0}).sort("production_date", -1).to_list(1000)
+    # Üretim kayıtlarını al (Kesim hariç)
+    manufacturing = await db.manufacturing_records.find(
+        {"machine": {"$ne": "Kesim"}}, 
+        {"_id": 0}
+    ).sort("production_date", -1).to_list(1000)
     
     # Günlük tüketimleri al  
     daily_consumptions = await db.daily_consumptions.find({}, {"_id": 0}).to_list(1000)
