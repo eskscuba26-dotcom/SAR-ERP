@@ -30,7 +30,6 @@ export default function ProfilePage() {
       setProfile(response.data);
       setFormData({
         username: response.data.username,
-        email: response.data.email,
         password: '',
         confirmPassword: ''
       });
