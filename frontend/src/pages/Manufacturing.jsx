@@ -592,7 +592,7 @@ export default function Manufacturing({ user }) {
                 </tr>
               </thead>
               <tbody>
-                {records.map((record, index) => (
+                {filteredRecords.map((record, index) => (
                   <tr key={record.id} className="border-b hover:bg-gray-50" data-testid={`manufacturing-row-${index}`}>
                     <td className="p-2">{format(new Date(record.production_date), 'dd.MM.yyyy', { locale: tr })}</td>
                     <td className="p-2">
