@@ -368,7 +368,7 @@ async def register(user_data: UserCreate):
     )
     
     doc = user_obj.model_dump()
-    doc['password'] = hashed_pw
+    doc['password_hash'] = hashed_pw
     doc['created_at'] = doc['created_at'].isoformat()
     
     await db.users.insert_one(doc)
