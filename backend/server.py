@@ -51,15 +51,20 @@ async def root():
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
+    try:
+        status_dict = input.model_dump()
+        status_obj = StatusCheck(**status_dict)
+        
+        # Convert to dict and serialize datetime to ISO string for MongoDB
+        doc = status_obj.model_dump()
+        doc['timestamp'] = doc['timestamp'].isoformat()
+        
+        result = await db.status_checks.insert_one(doc)
+        logger.info(f"Status check created with id: {status_obj.id}")
+        return status_obj
+    except Exception as e:
+        logger.error(f"Error creating status check: {str(e)}")
+        raise
 
 @api_router.get("/status", response_model=List[StatusCheck])
 async def get_status_checks():
