@@ -18,7 +18,8 @@ import {
   Scissors,
   UserCog,
   User as UserIcon,
-  Banknote
+  Banknote,
+  FileText
 } from 'lucide-react';
 
 export default function DashboardLayout({ children, user }) {
