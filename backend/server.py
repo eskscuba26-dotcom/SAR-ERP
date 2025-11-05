@@ -1494,11 +1494,11 @@ async def get_production_cost_analysis(current_user = Depends(get_current_user))
         allocated_talk = daily_cons.get('talk_quantity', 0) * share_ratio
         gas_share = mfg.get('gas_consumption_kg', 0)
         
-        # Maliyetler
-        petkim_price = material_map.get('Petkim', {}).get('unit_price', 0)
-        estol_price = material_map.get('Estol', {}).get('unit_price', 0)
-        talk_price = material_map.get('Talk', {}).get('unit_price', 0)
-        gaz_price = material_map.get('Gaz', {}).get('unit_price', 0)
+        # Maliyetler - Güncel kurlarla hesaplanmış fiyatları kullan
+        petkim_price = material_prices.get('Petkim', 0)
+        estol_price = material_prices.get('Estol', 0)
+        talk_price = material_prices.get('Talk', 0)
+        gaz_price = material_prices.get('Gaz', 0)
         
         petkim_cost = allocated_petkim * petkim_price
         estol_cost = allocated_estol * estol_price
