@@ -15,7 +15,9 @@ import {
   Boxes,
   Flame,
   PackagePlus,
-  Scissors
+  Scissors,
+  UserCog,
+  User as UserIcon
 } from 'lucide-react';
 
 export default function DashboardLayout({ children, user }) {
