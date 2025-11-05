@@ -43,7 +43,7 @@ export default function UserManagement() {
   };
 
   const handleAddUser = async () => {
-    if (!formData.username || !formData.email || !formData.password) {
+    if (!formData.username || !formData.password) {
       toast.error('Lütfen tüm alanları doldurun');
       return;
     }
@@ -55,7 +55,7 @@ export default function UserManagement() {
       });
       toast.success('Kullanıcı başarıyla eklendi');
       setShowAddDialog(false);
-      setFormData({ username: '', email: '', password: '', role: 'viewer' });
+      setFormData({ username: '', password: '', role: 'viewer' });
       fetchUsers();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Kullanıcı eklenemedi');
