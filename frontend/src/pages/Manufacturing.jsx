@@ -461,7 +461,8 @@ export default function Manufacturing({ user }) {
               </form>
             </DialogContent>
           </Dialog>
-        )}
+          )}
+        </div>
       </div>
 
       {showFilters && (
