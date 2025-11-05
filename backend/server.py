@@ -1769,19 +1769,7 @@ async def get_users(current_user = Depends(get_current_user)):
             user['created_at'] = datetime.fromisoformat(user['created_at'])
     return users
 
-@api_router.delete("/users/{user_id}")
-async def delete_user(user_id: str, current_user = Depends(get_current_user)):
-    if current_user['role'] != 'admin':
-        raise HTTPException(status_code=403, detail="Admin access required")
-    
-    if user_id == current_user['user_id']:
-        raise HTTPException(status_code=400, detail="Cannot delete your own account")
-    
-    result = await db.users.delete_one({"id": user_id})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=404, detail="User not found")
-    
-    return {"message": "User deleted successfully"}
+# User management endpoints added above
 
 # Include router
 app.include_router(api_router)
