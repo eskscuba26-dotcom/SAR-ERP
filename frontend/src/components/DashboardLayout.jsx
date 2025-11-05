@@ -17,7 +17,8 @@ import {
   PackagePlus,
   Scissors,
   UserCog,
-  User as UserIcon
+  User as UserIcon,
+  Banknote
 } from 'lucide-react';
 
 export default function DashboardLayout({ children, user }) {
