@@ -22,7 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     helloWorldApi();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // API called once on component mount
 
   return (
     <div>
