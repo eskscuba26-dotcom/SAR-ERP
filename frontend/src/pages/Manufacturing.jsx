@@ -49,6 +49,78 @@ export default function Manufacturing({ user }) {
     fetchColors();
   }, []);
 
+  useEffect(() => {
+    applyFilters();
+  }, [records, filters]);
+
+  const applyFilters = () => {
+    let filtered = [...records];
+
+    if (filters.startDate) {
+      filtered = filtered.filter(r => new Date(r.production_date) >= new Date(filters.startDate));
+    }
+    if (filters.endDate) {
+      filtered = filtered.filter(r => new Date(r.production_date) <= new Date(filters.endDate));
+    }
+    if (filters.machine) {
+      filtered = filtered.filter(r => r.machine === filters.machine);
+    }
+    if (filters.thickness) {
+      filtered = filtered.filter(r => r.thickness_mm === parseFloat(filters.thickness));
+    }
+    if (filters.width) {
+      filtered = filtered.filter(r => r.width_cm === parseFloat(filters.width));
+    }
+    if (filters.color) {
+      filtered = filtered.filter(r => r.color_material_id === filters.color);
+    }
+
+    setFilteredRecords(filtered);
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      startDate: '',
+      endDate: '',
+      machine: '',
+      thickness: '',
+      width: '',
+      color: ''
+    });
+  };
+
+  const exportToPDF = () => {
+    const doc = new jsPDF('l', 'mm', 'a4');
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text('Üretim Kayıtları', 14, 15);
+    
+    const tableData = filteredRecords.map(record => [
+      new Date(record.production_date).toLocaleDateString('tr-TR'),
+      record.machine || '',
+      record.thickness_mm || '',
+      record.width_cm || '',
+      record.length_m || '',
+      record.quantity || '',
+      record.square_meters?.toFixed(2) || '',
+      record.masura_type || '',
+      record.masura_quantity || '',
+      record.color_name || '-'
+    ]);
+
+    doc.autoTable({
+      startY: 20,
+      head: [['Tarih', 'Makine', 'Kalınlık', 'En', 'Metre', 'Adet', 'm²', 'Masura', 'M.Adet', 'Renk']],
+      body: tableData,
+      styles: { fontSize: 8, font: 'helvetica' },
+      headStyles: { fillColor: [79, 70, 229], textColor: 255 }
+    });
+
+    doc.save(`uretim-kayitlari-${new Date().toLocaleDateString('tr-TR')}.pdf`);
+    toast.success('PDF indirildi');
+  };
+
   const fetchRecords = async () => {
     try {
       const response = await axios.get(`${API}/manufacturing`);
