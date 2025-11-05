@@ -172,7 +172,6 @@ export default function UserManagement() {
             <TableHeader>
               <TableRow>
                 <TableHead>Kullanıcı Adı</TableHead>
-                <TableHead>E-posta</TableHead>
                 <TableHead>Rol</TableHead>
                 <TableHead>Kayıt Tarihi</TableHead>
                 <TableHead className="text-right">İşlemler</TableHead>
@@ -182,7 +181,6 @@ export default function UserManagement() {
               {users.map((user) => (
                 <TableRow key={user.id}>
                   <TableCell className="font-medium">{user.username}</TableCell>
-                  <TableCell>{user.email}</TableCell>
                   <TableCell>{getRoleBadge(user.role)}</TableCell>
                   <TableCell>{new Date(user.created_at).toLocaleDateString('tr-TR')}</TableCell>
                   <TableCell className="text-right">
