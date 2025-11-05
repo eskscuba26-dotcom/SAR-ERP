@@ -82,6 +82,18 @@ class ProfileUpdate(BaseModel):
     email: Optional[str] = None
     password: Optional[str] = None
 
+class ExchangeRate(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    currency: str  # USD, EUR
+    rate: float  # TL karşılığı
+    updated_by: str
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class ExchangeRateUpdate(BaseModel):
+    usd_rate: float
+    eur_rate: float
+
 class RawMaterial(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
