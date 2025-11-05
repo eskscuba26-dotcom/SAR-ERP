@@ -60,10 +60,12 @@ export default function LoginPage({ setUser }) {
     <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
       <div className="w-full max-w-md fade-in">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl shadow-lg mb-4">
-            <Factory className="w-8 h-8 text-indigo-600" />
+          <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-2xl shadow-lg mb-4">
+            <div className="text-5xl font-black text-indigo-600" style={{ fontFamily: 'Space Grotesk', letterSpacing: '0.1em' }}>
+              SAR
+            </div>
           </div>
-          <h1 className="text-4xl font-bold text-white mb-2" style={{ fontFamily: 'Space Grotesk' }}>ERP Sistemi</h1>
+          <h1 className="text-4xl font-bold text-white mb-2" style={{ fontFamily: 'Space Grotesk' }}>SAR Sistem</h1>
           <p className="text-indigo-100">İmalat Yönetim Platformu</p>
         </div>
 
