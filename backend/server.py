@@ -443,9 +443,124 @@ async def get_me(current_user = Depends(get_current_user)):
     user = await db.users.find_one({"id": current_user['user_id']}, {"_id": 0, "password_hash": 0})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
+    
+    # Convert ISO string back to datetime
     if isinstance(user['created_at'], str):
         user['created_at'] = datetime.fromisoformat(user['created_at'])
-    return User(**user)
+    
+    return user
+
+# User Management (Admin Only)
+@api_router.get("/users", response_model=List[User])
+async def get_all_users(admin_user = Depends(get_admin_user)):
+    """Tüm kullanıcıları listele (Sadece Admin)"""
+    users = await db.users.find({}, {"_id": 0, "password_hash": 0}).to_list(1000)
+    
+    for user in users:
+        if isinstance(user.get('created_at'), str):
+            user['created_at'] = datetime.fromisoformat(user['created_at'])
+    
+    return users
+
+@api_router.post("/users", response_model=User)
+async def create_user(user_data: UserCreate, admin_user = Depends(get_admin_user)):
+    """Yeni kullanıcı oluştur (Sadece Admin)"""
+    existing = await db.users.find_one({"username": user_data.username})
+    if existing:
+        raise HTTPException(status_code=400, detail="Kullanıcı adı zaten kullanılıyor")
+    
+    hashed_pw = hash_password(user_data.password)
+    user_obj = User(
+        username=user_data.username,
+        email=user_data.email,
+        role=user_data.role
+    )
+    
+    doc = user_obj.model_dump()
+    doc['password_hash'] = hashed_pw
+    doc['created_at'] = doc['created_at'].isoformat()
+    
+    await db.users.insert_one(doc)
+    logger.info(f"Admin {admin_user['username']} created user: {user_data.username}")
+    return user_obj
+
+@api_router.put("/users/{user_id}", response_model=User)
+async def update_user(user_id: str, user_data: UserUpdate, admin_user = Depends(get_admin_user)):
+    """Kullanıcı bilgilerini güncelle (Sadece Admin)"""
+    existing_user = await db.users.find_one({"id": user_id})
+    if not existing_user:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    
+    update_data = {}
+    if user_data.username:
+        # Check if username already exists
+        duplicate = await db.users.find_one({"username": user_data.username, "id": {"$ne": user_id}})
+        if duplicate:
+            raise HTTPException(status_code=400, detail="Kullanıcı adı zaten kullanılıyor")
+        update_data['username'] = user_data.username
+    
+    if user_data.email:
+        update_data['email'] = user_data.email
+    
+    if user_data.password:
+        update_data['password_hash'] = hash_password(user_data.password)
+    
+    if user_data.role:
+        update_data['role'] = user_data.role
+    
+    if update_data:
+        await db.users.update_one({"id": user_id}, {"$set": update_data})
+        logger.info(f"Admin {admin_user['username']} updated user: {user_id}")
+    
+    updated_user = await db.users.find_one({"id": user_id}, {"_id": 0, "password_hash": 0})
+    if isinstance(updated_user.get('created_at'), str):
+        updated_user['created_at'] = datetime.fromisoformat(updated_user['created_at'])
+    
+    return updated_user
+
+@api_router.delete("/users/{user_id}")
+async def delete_user(user_id: str, admin_user = Depends(get_admin_user)):
+    """Kullanıcıyı sil (Sadece Admin)"""
+    # Kendini silemesin
+    if user_id == admin_user['user_id']:
+        raise HTTPException(status_code=400, detail="Kendi hesabınızı silemezsiniz")
+    
+    result = await db.users.delete_one({"id": user_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    
+    logger.info(f"Admin {admin_user['username']} deleted user: {user_id}")
+    return {"message": "Kullanıcı silindi"}
+
+# Profile Management (Own Profile)
+@api_router.put("/profile", response_model=User)
+async def update_profile(profile_data: ProfileUpdate, current_user = Depends(get_current_user)):
+    """Kendi profilini güncelle"""
+    user_id = current_user['user_id']
+    
+    update_data = {}
+    if profile_data.username:
+        # Check if username already exists
+        duplicate = await db.users.find_one({"username": profile_data.username, "id": {"$ne": user_id}})
+        if duplicate:
+            raise HTTPException(status_code=400, detail="Kullanıcı adı zaten kullanılıyor")
+        update_data['username'] = profile_data.username
+    
+    if profile_data.email:
+        update_data['email'] = profile_data.email
+    
+    if profile_data.password:
+        update_data['password_hash'] = hash_password(profile_data.password)
+    
+    if update_data:
+        await db.users.update_one({"id": user_id}, {"$set": update_data})
+        logger.info(f"User {current_user['username']} updated their profile")
+    
+    updated_user = await db.users.find_one({"id": user_id}, {"_id": 0, "password_hash": 0})
+    if isinstance(updated_user.get('created_at'), str):
+        updated_user['created_at'] = datetime.fromisoformat(updated_user['created_at'])
+    
+    return updated_user
 
 # Raw Material Routes
 @api_router.post("/raw-materials", response_model=RawMaterial)
