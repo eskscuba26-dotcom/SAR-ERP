@@ -1251,6 +1251,117 @@ async def get_cost_analysis(current_user = Depends(get_current_user)):
     
     return list(cost_data.values())
 
+@api_router.get("/costs/production-analysis", response_model=List[ProductionCostAnalysis])
+async def get_production_cost_analysis(current_user = Depends(get_current_user)):
+    """Üretim bazında detaylı maliyet analizi"""
+    
+    # Üretim kayıtlarını al
+    manufacturing = await db.manufacturing_records.find({}, {"_id": 0}).sort("production_date", -1).to_list(1000)
+    
+    # Günlük tüketimleri al  
+    daily_consumptions = await db.daily_consumptions.find({}, {"_id": 0}).to_list(1000)
+    
+    # Hammaddeleri al
+    materials = await db.raw_materials.find({}, {"_id": 0}).to_list(1000)
+    material_map = {m['name']: m for m in materials}
+    
+    # Günlük tüketimleri tarih+makine bazında grupla
+    daily_map = {}
+    for dc in daily_consumptions:
+        date_str = dc.get('date', '')[:10]  # YYYY-MM-DD formatına çevir
+        machine = dc.get('machine', '')
+        key = f"{date_str}|{machine}"
+        daily_map[key] = dc
+    
+    results = []
+    row_number = 1
+    
+    for mfg in manufacturing:
+        # Tarih ve makine bilgisi
+        prod_date_str = mfg.get('production_date', '')
+        if isinstance(prod_date_str, str):
+            date_only = prod_date_str[:10]
+        else:
+            date_only = prod_date_str.strftime('%Y-%m-%d')
+        
+        machine = mfg.get('machine', '')
+        key = f"{date_only}|{machine}"
+        
+        # O günün o makinesinin toplam üretimini bul
+        same_day_productions = [m for m in manufacturing 
+                               if (str(m.get('production_date', ''))[:10] == date_only and 
+                                   m.get('machine') == machine)]
+        
+        total_day_sqm = sum(m.get('square_meters', 0) for m in same_day_productions)
+        
+        # Bu üretimin payı
+        mfg_sqm = mfg.get('square_meters', 0)
+        share_ratio = mfg_sqm / total_day_sqm if total_day_sqm > 0 else 0
+        
+        # Günlük tüketimi bul
+        daily_cons = daily_map.get(key, {})
+        
+        # Paylı tüketimler
+        allocated_petkim = (daily_cons.get('petkim_quantity', 0) + daily_cons.get('fire_quantity', 0)) * share_ratio
+        allocated_estol = daily_cons.get('estol_quantity', 0) * share_ratio
+        allocated_talk = daily_cons.get('talk_quantity', 0) * share_ratio
+        gas_share = mfg.get('gas_consumption_kg', 0)
+        
+        # Maliyetler
+        petkim_price = material_map.get('Petkim', {}).get('unit_price', 0)
+        estol_price = material_map.get('Estol', {}).get('unit_price', 0)
+        talk_price = material_map.get('Talk', {}).get('unit_price', 0)
+        gaz_price = material_map.get('Gaz', {}).get('unit_price', 0)
+        
+        petkim_cost = allocated_petkim * petkim_price
+        estol_cost = allocated_estol * estol_price
+        talk_cost = allocated_talk * talk_price
+        gas_cost = gas_share * gaz_price
+        
+        # Masura maliyeti
+        masura_type = mfg.get('masura_type', '')
+        masura_qty = mfg.get('masura_quantity', 0)
+        masura_price = material_map.get(masura_type, {}).get('unit_price', 0)
+        masura_cost = masura_qty * masura_price
+        
+        # Toplam maliyet
+        total_cost = petkim_cost + estol_cost + talk_cost + gas_cost + masura_cost
+        
+        # Birim maliyetler
+        quantity = mfg.get('quantity', 1)
+        cost_per_sqm = total_cost / mfg_sqm if mfg_sqm > 0 else 0
+        cost_per_unit = total_cost / quantity if quantity > 0 else 0
+        
+        results.append({
+            'production_id': mfg.get('id', ''),
+            'row_number': row_number,
+            'date': date_only,
+            'machine': machine,
+            'thickness_mm': mfg.get('thickness_mm', 0),
+            'width_cm': mfg.get('width_cm', 0),
+            'length_m': mfg.get('length_m', 0),
+            'quantity': quantity,
+            'square_meters': round(mfg_sqm, 2),
+            'allocated_petkim': round(allocated_petkim, 2),
+            'allocated_estol': round(allocated_estol, 2),
+            'allocated_talk': round(allocated_talk, 2),
+            'gas_share': round(gas_share, 2),
+            'masura_type': masura_type,
+            'masura_quantity': masura_qty,
+            'petkim_cost': round(petkim_cost, 2),
+            'estol_cost': round(estol_cost, 2),
+            'talk_cost': round(talk_cost, 2),
+            'gas_cost': round(gas_cost, 2),
+            'masura_cost': round(masura_cost, 2),
+            'total_cost': round(total_cost, 2),
+            'cost_per_sqm': round(cost_per_sqm, 2),
+            'cost_per_unit': round(cost_per_unit, 2)
+        })
+        
+        row_number += 1
+    
+    return results
+
 # Dashboard Routes
 @api_router.get("/dashboard/stats", response_model=DashboardStats)
 async def get_dashboard_stats(current_user = Depends(get_current_user)):
