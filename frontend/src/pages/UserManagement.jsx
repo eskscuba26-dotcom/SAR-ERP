@@ -274,15 +274,6 @@ export default function UserManagement() {
               />
             </div>
             <div>
-              <Label htmlFor="edit-email">E-posta</Label>
-              <Input
-                id="edit-email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              />
-            </div>
-            <div>
               <Label htmlFor="edit-password">Yeni Şifre (Opsiyonel)</Label>
               <Input
                 id="edit-password"
