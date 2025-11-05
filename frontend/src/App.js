@@ -96,6 +96,7 @@ function App() {
                     <Route path="/users" element={<Users user={user} />} />
                     <Route path="/user-management" element={<UserManagement />} />
                     <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/exchange-rates" element={<ExchangeRates />} />
                   </Routes>
                 </DashboardLayout>
               </ProtectedRoute>
