@@ -528,12 +528,12 @@ export default function Manufacturing({ user }) {
               </div>
               <div>
                 <Label>En (cm)</Label>
-                <Select value={filters.width} onValueChange={(value) => setFilters({...filters, width: value})}>
+                <Select value={filters.width || "all"} onValueChange={(value) => setFilters({...filters, width: value === "all" ? "" : value})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Tümü" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Tümü</SelectItem>
+                    <SelectItem value="all">Tümü</SelectItem>
                     <SelectItem value="100">100</SelectItem>
                     <SelectItem value="110">110</SelectItem>
                     <SelectItem value="120">120</SelectItem>
