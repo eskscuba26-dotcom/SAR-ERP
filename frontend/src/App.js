@@ -22,6 +22,7 @@ import Users from "@/pages/Users";
 import UserManagement from "@/pages/UserManagement";
 import ProfilePage from "@/pages/ProfilePage";
 import ExchangeRates from "@/pages/ExchangeRates";
+import Reports from "@/pages/Reports";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
