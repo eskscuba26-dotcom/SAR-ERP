@@ -547,12 +547,12 @@ export default function Manufacturing({ user }) {
               </div>
               <div>
                 <Label>Renk</Label>
-                <Select value={filters.color} onValueChange={(value) => setFilters({...filters, color: value})}>
+                <Select value={filters.color || "all"} onValueChange={(value) => setFilters({...filters, color: value === "all" ? "" : value})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Tümü" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Tümü</SelectItem>
+                    <SelectItem value="all">Tümü</SelectItem>
                     {colors.map((color) => (
                       <SelectItem key={color.id} value={color.id}>
                         {color.name}
