@@ -242,7 +242,7 @@ export default function Stock() {
                 </tr>
               </thead>
               <tbody>
-                {stockItems.map((item, index) => {
+                {filteredItems.map((item, index) => {
                   const isKesik = item.model && item.model.includes('Kesik');
                   return (
                     <tr key={index} className="border-b hover:bg-gray-50" data-testid={`stock-row-${index}`}>
