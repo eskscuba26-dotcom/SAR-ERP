@@ -286,11 +286,62 @@ frontend:
     file: "frontend/src/pages/Consumption.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: true
         agent: "testing"
         comment: "Comprehensive test completed per user requirements: ✅ Admin login (admin/admin123) successful ✅ Page navigation to /consumption working ✅ Records loaded: 20 consumption records (meets requirement) ✅ Date field type='date' verified (NO TIME FIELD) ✅ Add button 'Tüketim Kaydı Ekle' working ✅ Form fields functional: Petkim (1000kg), Fire (300kg), Machine selection ✅ Automatic calculations PERFECT: Estol: 39.00kg (1300*0.03), Talk: 19.50kg (1300*0.015), Total Petkim: 1300.00kg ✅ Form submission successful ✅ Success message 'Tüketim kaydı oluşturuldu' displayed ✅ New record added to table (21 total) ✅ No console errors detected. ALL CRITICAL CONTROLS VERIFIED SUCCESSFULLY."
+      - working: "NA"
+        agent: "main"
+        comment: "Added filtering (by date range, machine) and PDF export functionality. Needs retesting to verify new features work correctly."
+
+  - task: "Stock Page - Filtering & PDF Export"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/Stock.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added filtering (by thickness, width, min/max quantity) and PDF export with SAR branding. Need to test filter functionality and PDF generation."
+
+  - task: "Shipments Page - Filtering & PDF Export"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/Shipments.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added filtering (by date range, customer name, thickness, width) and PDF export with SAR branding. Need to test filter functionality and PDF generation."
+
+  - task: "RawMaterials Page - Filtering & PDF Export"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/RawMaterials.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added filtering (by name, code, low stock checkbox) and PDF export with SAR branding. Need to test filter functionality and PDF generation."
+
+  - task: "CutProduction Page - Filtering & PDF Export"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/CutProduction.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added filtering (by date range, source thickness, cut width) and PDF export with SAR branding. Need to test filter functionality and PDF generation."
 
 metadata:
   created_by: "main_agent"
