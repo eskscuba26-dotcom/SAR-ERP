@@ -104,9 +104,9 @@ export default function RawMaterials({ user }) {
       ];
     });
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 20,
-      head: [['Hammadde Adı', 'Kod', 'Birim', 'Mevcut Stok', 'Min. Stok', 'Birim Fiyat (TL)', 'Durum']],
+      head: [['Hammadde Adi', 'Kod', 'Birim', 'Mevcut Stok', 'Min. Stok', 'Birim Fiyat (TL)', 'Durum']],
       body: tableData,
       styles: { fontSize: 9, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
