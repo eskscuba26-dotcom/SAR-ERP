@@ -94,7 +94,7 @@ export default function Manufacturing({ user }) {
     
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
-    doc.text('SAR - Uretim Kayitlari', 14, 15);
+    doc.text('SAR - Production Records', 14, 15);
     
     const tableData = filteredRecords.map(record => [
       new Date(record.production_date).toLocaleDateString('tr-TR'),
