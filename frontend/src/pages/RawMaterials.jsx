@@ -89,7 +89,7 @@ export default function RawMaterials({ user }) {
     
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
-    doc.text('SAR - Hammadde Stok Listesi', 14, 15);
+    doc.text('SAR - Raw Material Stock List', 14, 15);
     
     const tableData = filteredMaterials.map(material => {
       const isLowStock = material.current_stock <= material.min_stock_level;
