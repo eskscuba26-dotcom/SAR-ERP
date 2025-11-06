@@ -4,7 +4,7 @@
 
 ### **Uygulama URL'si:**
 ```
-https://alldata-service.preview.emergentagent.com
+https://manuf-control-1.preview.emergentagent.com
 ```
 
 ### **Giriş Bilgileri:**
@@ -14,7 +14,7 @@ https://alldata-service.preview.emergentagent.com
 
 ### **Backend API URL:**
 ```
-https://alldata-service.preview.emergentagent.com/api
+https://manuf-control-1.preview.emergentagent.com/api
 ```
 
 ---
@@ -308,7 +308,7 @@ https://alldata-service.preview.emergentagent.com/api
 
 ## 🚀 SİSTEMİ KULLANMAYA BAŞLAMA
 
-1. **Tarayıcınızda açın:** https://alldata-service.preview.emergentagent.com
+1. **Tarayıcınızda açın:** https://manuf-control-1.preview.emergentagent.com
 2. **Giriş yapın:** admin / admin123
 3. **Dashboard'u görüntüleyin** - Genel durum özeti
 4. **Sol menüden sayfalar arasında geçiş yapın**

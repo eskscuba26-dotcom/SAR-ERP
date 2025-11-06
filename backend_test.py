@@ -11,7 +11,7 @@ import sys
 import os
 
 # Get backend URL from frontend .env file
-BACKEND_URL = "https://alldata-service.preview.emergentagent.com/api"
+BACKEND_URL = "https://manuf-control-1.preview.emergentagent.com/api"
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin123"
 
