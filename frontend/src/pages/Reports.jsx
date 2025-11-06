@@ -139,7 +139,7 @@ export default function Reports() {
       headStyles: { fillColor: [79, 70, 229] }
     });
 
-    doc.save(`SAR-Aylik-Rapor-${monthName}.pdf`);
+    doc.save(`SAR-Monthly-Report-${monthName}.pdf`);
     toast.success('Rapor PDF olarak indirildi');
   };
 
