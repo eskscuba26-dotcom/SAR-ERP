@@ -116,9 +116,21 @@ export default function Stock() {
 
   return (
     <div className="space-y-6 fade-in" data-testid="stock-page">
-      <div>
-        <h1 className="text-4xl font-bold mb-2" style={{ fontFamily: 'Space Grotesk' }}>Stok Durumu</h1>
-        <p className="text-gray-600">Üretilen mamul stok bilgileri</p>
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-4xl font-bold mb-2" style={{ fontFamily: 'Space Grotesk' }}>Stok Durumu</h1>
+          <p className="text-gray-600">Üretilen mamul stok bilgileri</p>
+        </div>
+        <div className="flex gap-2">
+          <Button onClick={() => setShowFilters(!showFilters)} variant="outline" className="gap-2">
+            <Filter className="h-4 w-4" />
+            Filtrele
+          </Button>
+          <Button onClick={exportToPDF} variant="outline" className="gap-2">
+            <FileDown className="h-4 w-4" />
+            PDF İndir
+          </Button>
+        </div>
       </div>
 
       {/* Summary Cards */}
