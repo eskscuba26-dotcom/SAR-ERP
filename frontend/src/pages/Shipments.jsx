@@ -122,7 +122,7 @@ export default function Shipments({ user }) {
 
     autoTable(doc, {
       startY: 20,
-      head: [['Tarih', 'Alici', 'Kalinlik', 'En', 'Metre', 'Renk', 'Adet', 'm2', 'Irsaliye', 'Plaka', 'Sofor']],
+      head: [['Date', 'Customer', 'Thickness', 'Width', 'Length', 'Color', 'Qty', 'm2', 'Waybill', 'Plate', 'Driver']],
       body: tableData,
       styles: { fontSize: 7, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
