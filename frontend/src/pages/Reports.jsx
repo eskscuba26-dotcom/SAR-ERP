@@ -193,7 +193,7 @@ export default function Reports() {
       `${rm.min_stock?.toLocaleString('tr-TR') || 0} ${rm.unit}`
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: yPos,
       head: [['Hammadde', 'Stok', 'Min. Stok']],
       body: rawMaterialsData,
