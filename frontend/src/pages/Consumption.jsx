@@ -446,6 +446,11 @@ export default function Consumption({ user }) {
                 ))}
               </tbody>
             </table>
+            {filteredConsumptions.length === 0 && consumptions.length > 0 && (
+              <div className="text-center py-8 text-gray-500">
+                Filtreye uygun tüketim kaydı bulunamadı.
+              </div>
+            )}
             {consumptions.length === 0 && (
               <div className="text-center py-8 text-gray-500">
                 Henüz tüketim kaydı bulunmuyor.
