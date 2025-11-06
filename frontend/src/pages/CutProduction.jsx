@@ -12,7 +12,7 @@ import { Plus, Scissors, Trash2, Filter, FileDown, X } from 'lucide-react';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 export default function CutProduction({ user }) {
   const [records, setRecords] = useState([]);
