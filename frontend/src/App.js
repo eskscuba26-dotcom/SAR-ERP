@@ -18,6 +18,7 @@ import GasConsumption from "@/pages/GasConsumption";
 import MaterialEntries from "@/pages/MaterialEntries";
 import CutProduction from "@/pages/CutProduction";
 import CostAnalysis from "@/pages/CostAnalysis";
+import ProductionCostAnalysis from "@/pages/ProductionCostAnalysis";
 import Users from "@/pages/Users";
 import UserManagement from "@/pages/UserManagement";
 import ProfilePage from "@/pages/ProfilePage";
