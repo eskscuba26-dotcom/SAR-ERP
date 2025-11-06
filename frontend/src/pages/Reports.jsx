@@ -198,7 +198,7 @@ export default function Reports() {
           <div className="flex gap-4 items-center">
             <div>
               <label className="block text-sm font-medium mb-2">Ay</label>
-              <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+              <Select value={selectedMonth || "all"} onValueChange={(value) => setSelectedMonth(value === "all" ? "" : value)}>
                 <SelectTrigger className="w-32">
                   <SelectValue placeholder="Ay seçin" />
                 </SelectTrigger>
