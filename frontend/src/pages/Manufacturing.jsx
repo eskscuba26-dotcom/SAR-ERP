@@ -111,7 +111,7 @@ export default function Manufacturing({ user }) {
 
     autoTable(doc, {
       startY: 20,
-      head: [['Tarih', 'Makine', 'Kalinlik', 'En', 'Metre', 'Adet', 'm2', 'Masura', 'M.Adet', 'Renk']],
+      head: [['Date', 'Machine', 'Thickness', 'Width', 'Length', 'Qty', 'm2', 'Reel', 'R.Qty', 'Color']],
       body: tableData,
       styles: { fontSize: 8, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
