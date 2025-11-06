@@ -322,18 +322,18 @@ export default function RawMaterials({ user }) {
                   <div>
                     <p className="text-sm text-gray-600">Mevcut Stok</p>
                     <p className={`text-2xl font-bold ${isLowStock ? 'text-red-600' : 'text-green-600'}`}>
-                      {material.current_stock} {material.unit}
+                      {material.current_stock?.toLocaleString('tr-TR', { maximumFractionDigits: 2 })} {material.unit}
                     </p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div>
                     <p className="text-gray-600">Birim Fiyat</p>
-                    <p className="font-medium">{material.unit_price} TL</p>
+                    <p className="font-medium">{material.unit_price?.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL</p>
                   </div>
                   <div>
                     <p className="text-gray-600">Min. Stok</p>
-                    <p className="font-medium">{material.min_stock_level} {material.unit}</p>
+                    <p className="font-medium">{material.min_stock_level?.toLocaleString('tr-TR', { maximumFractionDigits: 2 })} {material.unit}</p>
                   </div>
                 </div>
                 {canEdit && (
