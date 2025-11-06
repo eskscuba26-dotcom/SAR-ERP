@@ -133,6 +133,62 @@ export default function Stock() {
         </div>
       </div>
 
+      {/* Filters */}
+      {showFilters && (
+        <Card className="border-indigo-200 bg-indigo-50">
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-lg">Filtreler</CardTitle>
+              <Button variant="ghost" size="sm" onClick={clearFilters}>
+                <X className="h-4 w-4 mr-1" />
+                Temizle
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <Label>Kalınlık (mm)</Label>
+                <Input
+                  type="number"
+                  step="0.1"
+                  placeholder="Örn: 2"
+                  value={filters.thickness}
+                  onChange={(e) => setFilters({...filters, thickness: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>En (cm)</Label>
+                <Input
+                  type="number"
+                  placeholder="Örn: 150"
+                  value={filters.width}
+                  onChange={(e) => setFilters({...filters, width: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Min Adet</Label>
+                <Input
+                  type="number"
+                  placeholder="Minimum"
+                  value={filters.minQuantity}
+                  onChange={(e) => setFilters({...filters, minQuantity: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Max Adet</Label>
+                <Input
+                  type="number"
+                  placeholder="Maximum"
+                  value={filters.maxQuantity}
+                  onChange={(e) => setFilters({...filters, maxQuantity: e.target.value})}
+                />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="card-hover">
