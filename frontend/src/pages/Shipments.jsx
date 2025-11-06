@@ -8,18 +8,29 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Trash2, Truck, Edit } from 'lucide-react';
+import { Plus, Trash2, Truck, Edit, Filter, FileDown, X } from 'lucide-react';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default function Shipments({ user }) {
   const [shipments, setShipments] = useState([]);
+  const [filteredShipments, setFilteredShipments] = useState([]);
   const [colors, setColors] = useState([]);
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingShipment, setEditingShipment] = useState(null);
   const [useStockSelection, setUseStockSelection] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    startDate: '',
+    endDate: '',
+    customer: '',
+    thickness: '',
+    width: ''
+  });
   const [formData, setFormData] = useState({
     shipment_date: '',
     customer_company: '',
