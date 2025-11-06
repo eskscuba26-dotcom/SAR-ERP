@@ -276,6 +276,11 @@ export default function Stock() {
                 })}
               </tbody>
             </table>
+            {filteredItems.length === 0 && stockItems.length > 0 && (
+              <div className="text-center py-8 text-gray-500">
+                Filtreye uygun stok kaydı bulunamadı.
+              </div>
+            )}
             {stockItems.length === 0 && (
               <div className="text-center py-8 text-gray-500">
                 Henüz stok kaydı bulunmuyor.
