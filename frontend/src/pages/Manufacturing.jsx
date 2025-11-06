@@ -109,9 +109,9 @@ export default function Manufacturing({ user }) {
       record.color_name || '-'
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 20,
-      head: [['Tarih', 'Makine', 'Kalınlık', 'En', 'Metre', 'Adet', 'm²', 'Masura', 'M.Adet', 'Renk']],
+      head: [['Tarih', 'Makine', 'Kalinlik', 'En', 'Metre', 'Adet', 'm2', 'Masura', 'M.Adet', 'Renk']],
       body: tableData,
       styles: { fontSize: 8, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
