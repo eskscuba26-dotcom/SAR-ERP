@@ -219,7 +219,7 @@ export default function Reports() {
                   <SelectValue placeholder="Yıl" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Tümü</SelectItem>
+                  <SelectItem value="all">Tümü</SelectItem>
                   {years.map(year => (
                     <SelectItem key={year} value={year}>
                       {year}
