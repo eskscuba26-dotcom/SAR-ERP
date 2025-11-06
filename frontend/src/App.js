@@ -66,13 +66,29 @@ function ProtectedRoute({ children }) {
 
 function App() {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    // Simulate app initialization
+    const initializeApp = async () => {
+      // Show loading for at least 2 seconds for smooth UX
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      
+      setIsLoading(false);
+    };
+
+    initializeApp();
   }, []);
+
+  // Show loading screen during app initialization
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="App">
