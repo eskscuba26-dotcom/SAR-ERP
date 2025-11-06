@@ -27,6 +27,10 @@ export default function ProductionCostAnalysis() {
     fetchProductionCostAnalysis();
   }, []);
 
+  useEffect(() => {
+    applyFilters();
+  }, [costData, filters]);
+
   const fetchProductionCostAnalysis = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -42,9 +46,66 @@ export default function ProductionCostAnalysis() {
     }
   };
 
-  const totalCost = costData.reduce((sum, item) => sum + item.total_cost, 0);
-  const totalSqm = costData.reduce((sum, item) => sum + item.square_meters, 0);
-  const totalQuantity = costData.reduce((sum, item) => sum + item.quantity, 0);
+  const applyFilters = () => {
+    let filtered = [...costData];
+
+    if (filters.thickness) {
+      filtered = filtered.filter(item => item.thickness_mm === parseFloat(filters.thickness));
+    }
+    if (filters.width) {
+      filtered = filtered.filter(item => item.width_cm === parseFloat(filters.width));
+    }
+    if (filters.minCost) {
+      filtered = filtered.filter(item => item.total_cost >= parseFloat(filters.minCost));
+    }
+    if (filters.maxCost) {
+      filtered = filtered.filter(item => item.total_cost <= parseFloat(filters.maxCost));
+    }
+
+    setFilteredData(filtered);
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      thickness: '',
+      width: '',
+      minCost: '',
+      maxCost: ''
+    });
+  };
+
+  const exportToPDF = () => {
+    const doc = new jsPDF('l', 'mm', 'a4');
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text('SAR - Production Cost Analysis', 14, 15);
+    
+    const tableData = filteredData.map(item => [
+      `${item.thickness_mm}mm x ${item.width_cm}cm x ${item.length_m}m`,
+      item.quantity?.toLocaleString() || '',
+      item.square_meters?.toFixed(2) || '',
+      `${item.material_cost?.toFixed(2)} TL` || '',
+      `${item.total_cost?.toFixed(2)} TL` || '',
+      `${item.cost_per_sqm?.toFixed(2)} TL` || '',
+      `${item.cost_per_unit?.toFixed(4)} TL` || ''
+    ]);
+
+    autoTable(doc, {
+      startY: 20,
+      head: [['Product', 'Qty', 'm2', 'Material Cost', 'Total Cost', 'Cost/m2', 'Cost/Unit']],
+      body: tableData,
+      styles: { fontSize: 8, font: 'helvetica' },
+      headStyles: { fillColor: [79, 70, 229], textColor: 255 }
+    });
+
+    doc.save(`production-cost-analysis-${new Date().toLocaleDateString('tr-TR')}.pdf`);
+    toast.success('PDF indirildi');
+  };
+
+  const totalCost = filteredData.reduce((sum, item) => sum + item.total_cost, 0);
+  const totalSqm = filteredData.reduce((sum, item) => sum + item.square_meters, 0);
+  const totalQuantity = filteredData.reduce((sum, item) => sum + item.quantity, 0);
 
   if (loading) {
     return (
