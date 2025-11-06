@@ -111,13 +111,13 @@ export default function Reports() {
     yPos += 10;
     
     doc.setFont('helvetica', 'normal');
-    doc.text(`Toplam Uretim: ${stats.totalProduction.toLocaleString()} adet (${stats.totalProductionM2.toFixed(2)} m2)`, 14, yPos);
+    doc.text(`Total Production: ${stats.totalProduction.toLocaleString()} pcs (${stats.totalProductionM2.toFixed(2)} m2)`, 14, yPos);
     yPos += 6;
-    doc.text(`Toplam Tuketim: ${stats.totalConsumption.toFixed(2)} kg`, 14, yPos);
+    doc.text(`Total Consumption: ${stats.totalConsumption.toFixed(2)} kg`, 14, yPos);
     yPos += 6;
-    doc.text(`Toplam Sevkiyat: ${stats.totalShipments.toLocaleString()} adet (${stats.totalShipmentsM2.toFixed(2)} m2)`, 14, yPos);
+    doc.text(`Total Shipment: ${stats.totalShipments.toLocaleString()} pcs (${stats.totalShipmentsM2.toFixed(2)} m2)`, 14, yPos);
     yPos += 6;
-    doc.text(`Dusuk Stoklu Hammadde: ${stats.lowStockItems} adet`, 14, yPos);
+    doc.text(`Low Stock Materials: ${stats.lowStockItems} items`, 14, yPos);
     yPos += 15;
     
     // Hammadde stok durumu tablosu
