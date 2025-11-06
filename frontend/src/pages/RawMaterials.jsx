@@ -100,7 +100,7 @@ export default function RawMaterials({ user }) {
         material.current_stock?.toFixed(2) || '0',
         material.min_stock_level?.toFixed(2) || '0',
         material.unit_price?.toFixed(2) || '0',
-        isLowStock ? 'Düşük' : 'Normal'
+        isLowStock ? 'Dusuk' : 'Normal'
       ];
     });
 

@@ -83,7 +83,7 @@ export default function Consumption({ user }) {
     
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
-    doc.text('SAR - Günlük Tüketim Kayıtları', 14, 15);
+    doc.text('SAR - Gunluk Tuketim Kayitlari', 14, 15);
     
     const tableData = filteredConsumptions.map(consumption => [
       format(new Date(consumption.date), 'dd.MM.yyyy', { locale: tr }),
