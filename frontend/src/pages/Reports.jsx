@@ -133,7 +133,7 @@ export default function Reports() {
 
     autoTable(doc, {
       startY: yPos,
-      head: [['Hammadde', 'Stok', 'Min. Stok']],
+      head: [['Material', 'Stock', 'Min. Stock']],
       body: rawMaterialsData,
       styles: { fontSize: 9, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229] }
