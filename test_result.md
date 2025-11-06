@@ -604,13 +604,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "SelectItem Value Error Fix - Shipments Page"
-    - "Production Cost Analysis Filters"
-    - "Reports Page Error Fix"
-  stuck_tasks:
-    - "SelectItem Value Error Fix - Shipments Page"
-    - "Production Cost Analysis Filters" 
-    - "Reports Page Error Fix"
+    - "All critical issues have been resolved and verified"
+  stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
