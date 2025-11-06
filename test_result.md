@@ -286,7 +286,7 @@ frontend:
     file: "frontend/src/pages/Consumption.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "testing"
@@ -294,54 +294,69 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Added filtering (by date range, machine) and PDF export functionality. Needs retesting to verify new features work correctly."
+      - working: true
+        agent: "testing"
+        comment: "Filter & PDF Export Test PASSED: ✅ Filtrele button visible and functional ✅ Filter panel opens with date range and machine filters ✅ Machine filter dropdown working (Makine 1 selection tested) ✅ Temizle button clears filters successfully ✅ PDF İndir button visible and functional ✅ PDF export clicked without errors ✅ No autoTable console errors detected ✅ Toast notifications working (1 found) - All filtering and PDF export functionality working correctly."
 
   - task: "Stock Page - Filtering & PDF Export"
     implemented: true
-    working: "NA"
+    working: true
     file: "frontend/src/pages/Stock.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Added filtering (by thickness, width, min/max quantity) and PDF export with SAR branding. Need to test filter functionality and PDF generation."
+      - working: true
+        agent: "testing"
+        comment: "Filter & PDF Export Test PASSED: ✅ Filtrele button visible and functional ✅ Filter panel opens with thickness, width, min/max quantity filters ✅ Thickness filter (2mm) applied successfully ✅ Temizle button clears filters successfully ✅ PDF İndir button visible and functional ✅ PDF export clicked without errors ✅ No autoTable console errors detected - All filtering and PDF export functionality working correctly."
 
   - task: "Shipments Page - Filtering & PDF Export"
     implemented: true
-    working: "NA"
+    working: true
     file: "frontend/src/pages/Shipments.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Added filtering (by date range, customer name, thickness, width) and PDF export with SAR branding. Need to test filter functionality and PDF generation."
+      - working: true
+        agent: "testing"
+        comment: "Filter & PDF Export Test PASSED: ✅ Filtrele button visible and functional ✅ Filter panel opens with date range, customer, thickness, width filters ✅ Customer filter (Test Firma) applied successfully ✅ Temizle button clears filters successfully ✅ PDF İndir button visible and functional ✅ PDF export clicked without errors ✅ No autoTable console errors detected - All filtering and PDF export functionality working correctly."
 
   - task: "RawMaterials Page - Filtering & PDF Export"
     implemented: true
-    working: "NA"
+    working: true
     file: "frontend/src/pages/RawMaterials.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Added filtering (by name, code, low stock checkbox) and PDF export with SAR branding. Need to test filter functionality and PDF generation."
+      - working: true
+        agent: "testing"
+        comment: "Filter & PDF Export Test PASSED: ✅ Filtrele button visible and functional ✅ Filter panel opens with name, code, low stock filters ✅ Name filter (Pet) applied successfully ✅ Temizle button clears filters successfully ✅ PDF İndir button visible and functional ✅ PDF export clicked without errors ✅ Unit price formatting appears correct (proper decimal format) ✅ No autoTable console errors detected - All filtering and PDF export functionality working correctly."
 
   - task: "CutProduction Page - Filtering & PDF Export"
     implemented: true
-    working: "NA"
+    working: true
     file: "frontend/src/pages/CutProduction.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Added filtering (by date range, source thickness, cut width) and PDF export with SAR branding. Need to test filter functionality and PDF generation."
+      - working: true
+        agent: "testing"
+        comment: "Filter & PDF Export Test PASSED: ✅ Filtrele button visible and functional ✅ Filter panel opens with date range, source thickness, cut width filters ✅ Thickness filter (2mm) applied successfully ✅ Temizle button clears filters successfully ✅ PDF İndir button visible and functional ✅ PDF export clicked without errors ✅ No autoTable console errors detected - All filtering and PDF export functionality working correctly."
 
 metadata:
   created_by: "main_agent"
