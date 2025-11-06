@@ -44,6 +44,10 @@ export default function CutProduction({ user }) {
     fetchProductions();
   }, []);
 
+  useEffect(() => {
+    applyFilters();
+  }, [records, filters]);
+
   const fetchRecords = async () => {
     try {
       const response = await axios.get(`${API}/cut-production`);
@@ -53,6 +57,63 @@ export default function CutProduction({ user }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const applyFilters = () => {
+    let filtered = [...records];
+
+    if (filters.startDate) {
+      filtered = filtered.filter(r => new Date(r.date) >= new Date(filters.startDate));
+    }
+    if (filters.endDate) {
+      filtered = filtered.filter(r => new Date(r.date) <= new Date(filters.endDate));
+    }
+    if (filters.thickness) {
+      filtered = filtered.filter(r => r.source_thickness_mm === parseFloat(filters.thickness));
+    }
+    if (filters.width) {
+      filtered = filtered.filter(r => r.cut_width_cm === parseFloat(filters.width));
+    }
+
+    setFilteredRecords(filtered);
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      startDate: '',
+      endDate: '',
+      thickness: '',
+      width: ''
+    });
+  };
+
+  const exportToPDF = () => {
+    const doc = new jsPDF('l', 'mm', 'a4');
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text('SAR - Kesilmiş Üretim Kayıtları', 14, 15);
+    
+    const tableData = filteredRecords.map(record => [
+      format(new Date(record.date), 'dd.MM.yyyy', { locale: tr }),
+      `${record.source_thickness_mm}mm × ${record.source_width_cm}cm × ${record.source_length_m}m`,
+      `${record.source_thickness_mm}mm × ${record.cut_width_cm}cm × ${(record.cut_length_cm / 100).toFixed(2)}m`,
+      record.requested_pieces || '',
+      record.source_pieces_used || '',
+      record.total_cut_pieces || '',
+      record.cut_square_meters?.toFixed(2) || ''
+    ]);
+
+    doc.autoTable({
+      startY: 20,
+      head: [['Tarih', 'Ana Malzeme', 'Kesilmiş Ürün', 'İstenilen', 'Ana Kullanılan', 'Toplam Çıkan', 'm²']],
+      body: tableData,
+      styles: { fontSize: 8, font: 'helvetica' },
+      headStyles: { fillColor: [79, 70, 229], textColor: 255 }
+    });
+
+    doc.save(`kesim-kayitlari-${new Date().toLocaleDateString('tr-TR')}.pdf`);
+    toast.success('PDF indirildi');
   };
 
   const fetchProductions = async () => {
