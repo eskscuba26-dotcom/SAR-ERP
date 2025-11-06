@@ -595,9 +595,14 @@ metadata:
 
 test_plan:
   current_focus:
-    - "All backend endpoints tested and verified"
-  stuck_tasks: []
-  test_all: true
+    - "SelectItem Value Error Fix - Shipments Page"
+    - "Production Cost Analysis Filters"
+    - "Reports Page Error Fix"
+  stuck_tasks:
+    - "SelectItem Value Error Fix - Shipments Page"
+    - "Production Cost Analysis Filters" 
+    - "Reports Page Error Fix"
+  test_all: false
   test_priority: "high_first"
 
 agent_communication:
