@@ -410,8 +410,8 @@ export default function Shipments({ user }) {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="none">Renk Yok</SelectItem>
-                      {colors.map((color) => (
-                        <SelectItem key={color.id} value={color.id || `color-${color.name}`}>
+                      {colors.filter(color => color.id && color.name).map((color) => (
+                        <SelectItem key={color.id} value={color.id}>
                           {color.name}
                         </SelectItem>
                       ))}
