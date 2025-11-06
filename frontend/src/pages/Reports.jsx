@@ -107,7 +107,7 @@ export default function Reports() {
     // Özet bilgiler
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text('OZET BILGILER', 14, yPos);
+    doc.text('SUMMARY INFORMATION', 14, yPos);
     yPos += 10;
     
     doc.setFont('helvetica', 'normal');
