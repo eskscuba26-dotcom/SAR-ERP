@@ -13,7 +13,15 @@ import autoTable from 'jspdf-autotable';
 
 export default function ProductionCostAnalysis() {
   const [costData, setCostData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    thickness: '',
+    width: '',
+    minCost: '',
+    maxCost: ''
+  });
 
   useEffect(() => {
     fetchProductionCostAnalysis();
