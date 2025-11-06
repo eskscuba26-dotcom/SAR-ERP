@@ -106,7 +106,7 @@ export default function CutProduction({ user }) {
 
     autoTable(doc, {
       startY: 20,
-      head: [['Tarih', 'Ana Malzeme', 'Kesilmis Urun', 'Istenilen', 'Ana Kullanilan', 'Toplam Cikan', 'm2']],
+      head: [['Date', 'Source Material', 'Cut Product', 'Requested', 'Source Used', 'Total Output', 'm2']],
       body: tableData,
       styles: { fontSize: 8, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
