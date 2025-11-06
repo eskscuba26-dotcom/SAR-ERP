@@ -8,14 +8,23 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, ArrowUp, ArrowDown, AlertCircle } from 'lucide-react';
+import { Plus, ArrowUp, ArrowDown, AlertCircle, Filter, FileDown, X } from 'lucide-react';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default function RawMaterials({ user }) {
   const [materials, setMaterials] = useState([]);
+  const [filteredMaterials, setFilteredMaterials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [stockDialogOpen, setStockDialogOpen] = useState(false);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    name: '',
+    code: '',
+    lowStock: false
+  });
   const [formData, setFormData] = useState({
     name: '',
     code: '',
