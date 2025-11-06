@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Package, Filter, FileDown, X } from 'lucide-react';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 export default function Stock() {
   const [stockItems, setStockItems] = useState([]);
@@ -79,7 +79,7 @@ export default function Stock() {
     doc.text('SAR - Stok Durumu', 14, 15);
     
     const tableData = filteredItems.map(item => [
-      item.model && item.model.includes('Kesik') ? 'Kesilmiş' : 'Normal',
+      item.model && item.model.includes('Kesik') ? 'Kesilmis' : 'Normal',
       item.thickness_mm || '',
       item.width_cm || '',
       item.length_m || '',
@@ -88,9 +88,9 @@ export default function Stock() {
       item.total_square_meters?.toFixed(2) || ''
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 20,
-      head: [['Tip', 'Kalınlık (mm)', 'En (cm)', 'Metre', 'Renk', 'Toplam Adet', 'Toplam m²']],
+      head: [['Tip', 'Kalinlik (mm)', 'En (cm)', 'Metre', 'Renk', 'Toplam Adet', 'Toplam m2']],
       body: tableData,
       styles: { fontSize: 8, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
