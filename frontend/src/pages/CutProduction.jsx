@@ -507,6 +507,11 @@ export default function CutProduction({ user }) {
                 ))}
               </tbody>
             </table>
+            {filteredRecords.length === 0 && records.length > 0 && (
+              <div className="text-center py-8 text-gray-500">
+                Filtreye uygun kesilmiş üretim kaydı bulunamadı.
+              </div>
+            )}
             {records.length === 0 && (
               <div className="text-center py-8 text-gray-500">
                 Henüz kesilmiş üretim kaydı bulunmuyor.
