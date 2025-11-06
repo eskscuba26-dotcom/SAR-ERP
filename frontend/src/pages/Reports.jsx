@@ -214,7 +214,7 @@ export default function Reports() {
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Yıl</label>
-              <Select value={selectedYear} onValueChange={setSelectedYear}>
+              <Select value={selectedYear || "all"} onValueChange={(value) => setSelectedYear(value === "all" ? "" : value)}>
                 <SelectTrigger className="w-24">
                   <SelectValue placeholder="Yıl" />
                 </SelectTrigger>
