@@ -52,6 +52,10 @@ export default function Shipments({ user }) {
     fetchStocks();
   }, []);
 
+  useEffect(() => {
+    applyFilters();
+  }, [shipments, filters]);
+
   const fetchShipments = async () => {
     try {
       const response = await axios.get(`${API}/shipments`);
@@ -61,6 +65,71 @@ export default function Shipments({ user }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const applyFilters = () => {
+    let filtered = [...shipments];
+
+    if (filters.startDate) {
+      filtered = filtered.filter(s => new Date(s.shipment_date) >= new Date(filters.startDate));
+    }
+    if (filters.endDate) {
+      filtered = filtered.filter(s => new Date(s.shipment_date) <= new Date(filters.endDate));
+    }
+    if (filters.customer) {
+      filtered = filtered.filter(s => s.customer_company?.toLowerCase().includes(filters.customer.toLowerCase()));
+    }
+    if (filters.thickness) {
+      filtered = filtered.filter(s => s.thickness_mm === parseFloat(filters.thickness));
+    }
+    if (filters.width) {
+      filtered = filtered.filter(s => s.width_cm === parseFloat(filters.width));
+    }
+
+    setFilteredShipments(filtered);
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      startDate: '',
+      endDate: '',
+      customer: '',
+      thickness: '',
+      width: ''
+    });
+  };
+
+  const exportToPDF = () => {
+    const doc = new jsPDF('l', 'mm', 'a4');
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text('SAR - Sevkiyat Kayıtları', 14, 15);
+    
+    const tableData = filteredShipments.map(shipment => [
+      format(new Date(shipment.shipment_date), 'dd.MM.yyyy', { locale: tr }),
+      shipment.customer_company || '',
+      shipment.thickness_mm || '',
+      shipment.width_cm || '',
+      shipment.length_m || '',
+      shipment.color_name || '-',
+      shipment.quantity || '',
+      shipment.square_meters?.toFixed(2) || '',
+      shipment.invoice_number || '',
+      shipment.vehicle_plate || '',
+      shipment.driver_name || ''
+    ]);
+
+    doc.autoTable({
+      startY: 20,
+      head: [['Tarih', 'Alıcı', 'Kalınlık', 'En', 'Metre', 'Renk', 'Adet', 'm²', 'İrsaliye', 'Plaka', 'Şoför']],
+      body: tableData,
+      styles: { fontSize: 7, font: 'helvetica' },
+      headStyles: { fillColor: [79, 70, 229], textColor: 255 }
+    });
+
+    doc.save(`sevkiyat-kayitlari-${new Date().toLocaleDateString('tr-TR')}.pdf`);
+    toast.success('PDF indirildi');
   };
 
   const fetchColors = async () => {
