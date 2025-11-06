@@ -394,8 +394,63 @@ export default function CutProduction({ user }) {
               </form>
             </DialogContent>
           </Dialog>
-        )}
+          )}
+        </div>
       </div>
+
+      {/* Filters */}
+      {showFilters && (
+        <Card className="border-indigo-200 bg-indigo-50">
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-lg">Filtreler</CardTitle>
+              <Button variant="ghost" size="sm" onClick={clearFilters}>
+                <X className="h-4 w-4 mr-1" />
+                Temizle
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <Label>Başlangıç Tarihi</Label>
+                <Input
+                  type="date"
+                  value={filters.startDate}
+                  onChange={(e) => setFilters({...filters, startDate: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Bitiş Tarihi</Label>
+                <Input
+                  type="date"
+                  value={filters.endDate}
+                  onChange={(e) => setFilters({...filters, endDate: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Ana Kalınlık (mm)</Label>
+                <Input
+                  type="number"
+                  step="0.1"
+                  placeholder="Örn: 2"
+                  value={filters.thickness}
+                  onChange={(e) => setFilters({...filters, thickness: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Kesilmiş En (cm)</Label>
+                <Input
+                  type="number"
+                  placeholder="Örn: 50"
+                  value={filters.width}
+                  onChange={(e) => setFilters({...filters, width: e.target.value})}
+                />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>
