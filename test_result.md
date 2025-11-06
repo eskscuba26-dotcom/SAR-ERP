@@ -327,6 +327,9 @@ frontend:
       - working: true
         agent: "testing"
         comment: "Filter & PDF Export Test PASSED: ✅ Filtrele button visible and functional ✅ Filter panel opens with date range, customer, thickness, width filters ✅ Customer filter (Test Firma) applied successfully ✅ Temizle button clears filters successfully ✅ PDF İndir button visible and functional ✅ PDF export clicked without errors ✅ No autoTable console errors detected - All filtering and PDF export functionality working correctly."
+      - working: true
+        agent: "testing"
+        comment: "PDF Export Fix Verification COMPLETED: ✅ Login successful with testadmin/admin123 ✅ Shipments page loaded correctly ✅ PDF İndir button clicked successfully ✅ No autoTable console errors detected ✅ No 'doc.autoTable is not a function' errors ✅ Toast success message 'PDF indirildi' appeared ✅ SAR branding working correctly in PDF exports - AutoTable fix verified and working perfectly."
 
   - task: "RawMaterials Page - Filtering & PDF Export"
     implemented: true
