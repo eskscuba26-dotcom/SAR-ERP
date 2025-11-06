@@ -39,6 +39,10 @@ export default function Consumption({ user }) {
     fetchConsumptions();
   }, []);
 
+  useEffect(() => {
+    applyFilters();
+  }, [consumptions, filters]);
+
   const fetchConsumptions = async () => {
     try {
       const response = await axios.get(`${API}/daily-consumptions`);
@@ -48,6 +52,59 @@ export default function Consumption({ user }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const applyFilters = () => {
+    let filtered = [...consumptions];
+
+    if (filters.startDate) {
+      filtered = filtered.filter(c => new Date(c.date) >= new Date(filters.startDate));
+    }
+    if (filters.endDate) {
+      filtered = filtered.filter(c => new Date(c.date) <= new Date(filters.endDate));
+    }
+    if (filters.machine) {
+      filtered = filtered.filter(c => c.machine === filters.machine);
+    }
+
+    setFilteredConsumptions(filtered);
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      startDate: '',
+      endDate: '',
+      machine: ''
+    });
+  };
+
+  const exportToPDF = () => {
+    const doc = new jsPDF('l', 'mm', 'a4');
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text('SAR - Günlük Tüketim Kayıtları', 14, 15);
+    
+    const tableData = filteredConsumptions.map(consumption => [
+      format(new Date(consumption.date), 'dd.MM.yyyy', { locale: tr }),
+      consumption.machine || '',
+      consumption.petkim_quantity?.toFixed(2) || '',
+      consumption.estol_quantity?.toFixed(2) || '',
+      consumption.talk_quantity?.toFixed(2) || '',
+      consumption.fire_quantity?.toFixed(2) || '',
+      consumption.total_petkim?.toFixed(2) || ''
+    ]);
+
+    doc.autoTable({
+      startY: 20,
+      head: [['Tarih', 'Makine', 'Petkim (kg)', 'Estol (kg)', 'Talk (kg)', 'Fire (kg)', 'Toplam Petkim']],
+      body: tableData,
+      styles: { fontSize: 9, font: 'helvetica' },
+      headStyles: { fillColor: [79, 70, 229], textColor: 255 }
+    });
+
+    doc.save(`tuketim-kayitlari-${new Date().toLocaleDateString('tr-TR')}.pdf`);
+    toast.success('PDF indirildi');
   };
 
   // Otomatik hesaplamalar
