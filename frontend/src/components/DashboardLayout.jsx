@@ -47,6 +47,7 @@ export default function DashboardLayout({ children, user }) {
     { path: '/gas-consumption', icon: Flame, label: 'Gaz Tüketimi' },
     { path: '/shipments', icon: Truck, label: 'Sevkiyat' },
     { path: '/cost-analysis', icon: BarChart3, label: 'Maliyet Analizi' },
+    { path: '/manual-calculation', icon: Calculator, label: 'Manuel Hesaplama' },
     { path: '/reports', icon: FileText, label: 'Aylık Raporlar' },
   ];
 
