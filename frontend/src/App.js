@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "@/App.css";
+import LoadingScreen from "@/components/LoadingScreen";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
 import { Toaster } from "@/components/ui/sonner";
