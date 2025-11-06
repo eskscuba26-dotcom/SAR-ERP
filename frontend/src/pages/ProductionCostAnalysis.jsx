@@ -117,12 +117,82 @@ export default function ProductionCostAnalysis() {
 
   return (
     <div className="space-y-6 fade-in p-6">
-      <div>
-        <h1 className="text-4xl font-bold mb-2" style={{ fontFamily: 'Space Grotesk' }}>
-          Üretim Maliyet Analizi
-        </h1>
-        <p className="text-gray-600">Ürün bazında detaylı maliyet hesaplamaları</p>
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-4xl font-bold mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+            Üretim Maliyet Analizi
+          </h1>
+          <p className="text-gray-600">Ürün bazında detaylı maliyet hesaplamaları</p>
+        </div>
+        <div className="flex gap-2">
+          <Button onClick={() => setShowFilters(!showFilters)} variant="outline" className="gap-2">
+            <Filter className="h-4 w-4" />
+            Filtrele
+          </Button>
+          <Button onClick={exportToPDF} variant="outline" className="gap-2">
+            <FileDown className="h-4 w-4" />
+            PDF İndir
+          </Button>
+        </div>
       </div>
+
+      {/* Filters */}
+      {showFilters && (
+        <Card className="border-indigo-200 bg-indigo-50">
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-lg">Filtreler</CardTitle>
+              <Button variant="ghost" size="sm" onClick={clearFilters}>
+                <X className="h-4 w-4 mr-1" />
+                Temizle
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <Label>Kalınlık (mm)</Label>
+                <Input
+                  type="number"
+                  step="0.1"
+                  placeholder="Örn: 2"
+                  value={filters.thickness}
+                  onChange={(e) => setFilters({...filters, thickness: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>En (cm)</Label>
+                <Input
+                  type="number"
+                  placeholder="Örn: 150"
+                  value={filters.width}
+                  onChange={(e) => setFilters({...filters, width: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Min Maliyet (TL)</Label>
+                <Input
+                  type="number"
+                  step="0.01"
+                  placeholder="Minimum"
+                  value={filters.minCost}
+                  onChange={(e) => setFilters({...filters, minCost: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Max Maliyet (TL)</Label>
+                <Input
+                  type="number"
+                  step="0.01"
+                  placeholder="Maximum"
+                  value={filters.maxCost}
+                  onChange={(e) => setFilters({...filters, maxCost: e.target.value})}
+                />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
