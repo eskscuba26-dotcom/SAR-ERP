@@ -311,6 +311,16 @@ export default function ProductionCostAnalysis() {
                   ))}
                 </TableBody>
               </Table>
+              {filteredData.length === 0 && costData.length > 0 && (
+                <div className="text-center py-8 text-gray-500">
+                  Filtreye uygun kayıt bulunamadı.
+                </div>
+              )}
+              {costData.length === 0 && (
+                <div className="text-center py-8 text-gray-500">
+                  Henüz maliyet verisi bulunmuyor.
+                </div>
+              )}
             </div>
           )}
         </CardContent>
