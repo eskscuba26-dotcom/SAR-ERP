@@ -104,9 +104,9 @@ export default function CutProduction({ user }) {
       record.cut_square_meters?.toFixed(2) || ''
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 20,
-      head: [['Tarih', 'Ana Malzeme', 'Kesilmiş Ürün', 'İstenilen', 'Ana Kullanılan', 'Toplam Çıkan', 'm²']],
+      head: [['Tarih', 'Ana Malzeme', 'Kesilmis Urun', 'Istenilen', 'Ana Kullanilan', 'Toplam Cikan', 'm2']],
       body: tableData,
       styles: { fontSize: 8, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
