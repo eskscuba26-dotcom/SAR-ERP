@@ -95,7 +95,7 @@ export default function Consumption({ user }) {
       consumption.total_petkim?.toFixed(2) || ''
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 20,
       head: [['Tarih', 'Makine', 'Petkim (kg)', 'Estol (kg)', 'Talk (kg)', 'Fire (kg)', 'Toplam Petkim']],
       body: tableData,
