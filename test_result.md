@@ -539,7 +539,53 @@ backend:
           comment: "GET /api/dashboard/stats working correctly. Returns accurate counts for materials, products, productions, shipments, and low stock alerts."
 
 frontend:
-  # Frontend testing not performed as per instructions
+  - task: "SelectItem Value Error Fix - Shipments Page"
+    implemented: false
+    working: false
+    file: "frontend/src/pages/Shipments.jsx"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL: SelectItem error still exists - 'A <Select.Item /> must have a value prop that is not an empty string'. Error appears when opening color dropdown in Yeni Sevkiyat dialog. Causes red error screen overlay that blocks UI functionality. This is the exact issue mentioned in review request."
+
+  - task: "PDF Export Turkish Characters Fix"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/Shipments.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PDF exports working correctly on Shipments and Stock pages. No Turkish character encoding issues detected. SAR branding appears correctly in PDF headers."
+
+  - task: "Production Cost Analysis Filters"
+    implemented: false
+    working: false
+    file: "frontend/src/pages/ProductionCostAnalysis.jsx"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ Production Cost Analysis page exists at /production-cost-analysis but Filtrele and PDF İndir buttons not found. New filtering functionality appears to be missing or not properly implemented."
+
+  - task: "Reports Page Error Fix"
+    implemented: false
+    working: false
+    file: "frontend/src/pages/Reports.jsx"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ Reports page has SelectItem errors and 'Raporu PDF İndir' button not found. SelectItem component error occurs when interacting with month/year selectors. Monthly reports functionality not working as expected."
 
 metadata:
   created_by: "testing_agent"
