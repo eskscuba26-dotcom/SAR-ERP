@@ -122,7 +122,7 @@ export default function Reports() {
     
     // Hammadde stok durumu tablosu
     doc.setFont('helvetica', 'bold');
-    doc.text('HAMMADDE STOK DURUMU', 14, yPos);
+    doc.text('RAW MATERIAL STOCK STATUS', 14, yPos);
     yPos += 10;
     
     const rawMaterialsData = reportData.rawMaterials.map(rm => [
