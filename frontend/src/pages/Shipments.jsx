@@ -12,7 +12,7 @@ import { Plus, Trash2, Truck, Edit, Filter, FileDown, X } from 'lucide-react';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 export default function Shipments({ user }) {
   const [shipments, setShipments] = useState([]);
