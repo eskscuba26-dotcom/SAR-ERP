@@ -203,7 +203,16 @@ export default function Consumption({ user }) {
           <h1 className="text-4xl font-bold mb-2" style={{ fontFamily: 'Space Grotesk' }}>Günlük Tüketim Takibi</h1>
           <p className="text-gray-600">Makine bazlı hammadde tüketim kayıtları</p>
         </div>
-        {canEdit && (
+        <div className="flex gap-2">
+          <Button onClick={() => setShowFilters(!showFilters)} variant="outline" className="gap-2">
+            <Filter className="h-4 w-4" />
+            Filtrele
+          </Button>
+          <Button onClick={exportToPDF} variant="outline" className="gap-2">
+            <FileDown className="h-4 w-4" />
+            PDF İndir
+          </Button>
+          {canEdit && (
           <Dialog open={dialogOpen} onOpenChange={(open) => {
             setDialogOpen(open);
             if (!open) {
