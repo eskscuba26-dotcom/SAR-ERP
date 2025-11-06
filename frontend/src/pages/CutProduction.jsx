@@ -454,7 +454,7 @@ export default function CutProduction({ user }) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Kesilmiş Üretim Kayıtları ({records.length})</CardTitle>
+          <CardTitle>Kesilmiş Üretim Kayıtları ({filteredRecords.length})</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
