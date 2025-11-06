@@ -331,8 +331,57 @@ export default function Consumption({ user }) {
               </form>
             </DialogContent>
           </Dialog>
-        )}
+          )}
+        </div>
       </div>
+
+      {/* Filters */}
+      {showFilters && (
+        <Card className="border-indigo-200 bg-indigo-50">
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-lg">Filtreler</CardTitle>
+              <Button variant="ghost" size="sm" onClick={clearFilters}>
+                <X className="h-4 w-4 mr-1" />
+                Temizle
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <Label>Başlangıç Tarihi</Label>
+                <Input
+                  type="date"
+                  value={filters.startDate}
+                  onChange={(e) => setFilters({...filters, startDate: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Bitiş Tarihi</Label>
+                <Input
+                  type="date"
+                  value={filters.endDate}
+                  onChange={(e) => setFilters({...filters, endDate: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Makine</Label>
+                <Select value={filters.machine || "all"} onValueChange={(value) => setFilters({...filters, machine: value === "all" ? "" : value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Tümü" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Tümü</SelectItem>
+                    <SelectItem value="Makine 1">Makine 1</SelectItem>
+                    <SelectItem value="Makine 2">Makine 2</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>
