@@ -277,7 +277,7 @@ export default function ProductionCostAnalysis() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {costData.map((row) => (
+                  {filteredData.map((row) => (
                     <TableRow key={row.production_id} className="hover:bg-gray-50">
                       <TableCell className="font-medium">{row.row_number}</TableCell>
                       <TableCell>{new Date(row.date).toLocaleDateString('tr-TR')}</TableCell>
