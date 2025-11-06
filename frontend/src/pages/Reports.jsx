@@ -92,7 +92,7 @@ export default function Reports() {
     
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(18);
-    doc.text('SAR - Aylik Rapor', 14, 20);
+    doc.text('SAR - Monthly Report', 14, 20);
     
     const monthName = selectedMonth && selectedYear 
       ? new Date(selectedYear, selectedMonth - 1).toLocaleDateString('tr-TR', { month: 'long', year: 'numeric' })
