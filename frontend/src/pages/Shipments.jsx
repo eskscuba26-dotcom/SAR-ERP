@@ -571,7 +571,7 @@ export default function Shipments({ user }) {
                 </tr>
               </thead>
               <tbody>
-                {shipments.map((shipment, index) => (
+                {filteredShipments.map((shipment, index) => (
                   <tr key={shipment.id} className="border-b hover:bg-gray-50" data-testid={`shipment-row-${index}`}>
                     <td className="p-2">{format(new Date(shipment.shipment_date), 'dd.MM.yyyy', { locale: tr })}</td>
                     <td className="p-2 font-medium">{shipment.customer_company}</td>
