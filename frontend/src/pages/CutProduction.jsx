@@ -92,7 +92,7 @@ export default function CutProduction({ user }) {
     
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
-    doc.text('SAR - Kesilmis Uretim Kayitlari', 14, 15);
+    doc.text('SAR - Cut Production Records', 14, 15);
     
     const tableData = filteredRecords.map(record => [
       format(new Date(record.date), 'dd.MM.yyyy', { locale: tr }),
