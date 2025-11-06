@@ -92,12 +92,12 @@ export default function CutProduction({ user }) {
     
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
-    doc.text('SAR - Kesilmiş Üretim Kayıtları', 14, 15);
+    doc.text('SAR - Kesilmis Uretim Kayitlari', 14, 15);
     
     const tableData = filteredRecords.map(record => [
       format(new Date(record.date), 'dd.MM.yyyy', { locale: tr }),
-      `${record.source_thickness_mm}mm × ${record.source_width_cm}cm × ${record.source_length_m}m`,
-      `${record.source_thickness_mm}mm × ${record.cut_width_cm}cm × ${(record.cut_length_cm / 100).toFixed(2)}m`,
+      `${record.source_thickness_mm}mm x ${record.source_width_cm}cm x ${record.source_length_m}m`,
+      `${record.source_thickness_mm}mm x ${record.cut_width_cm}cm x ${(record.cut_length_cm / 100).toFixed(2)}m`,
       record.requested_pieces || '',
       record.source_pieces_used || '',
       record.total_cut_pieces || '',
@@ -298,7 +298,7 @@ export default function CutProduction({ user }) {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="source">Ana Malzeme (Üretim Kaydından)</Label>
+                  <Label htmlFor="source">Ana Malzeme (Üretim Kayıtlarından)</Label>
                   <Select value={formData.source_production_id} onValueChange={(value) => setFormData({ ...formData, source_production_id: value })}>
                     <SelectTrigger id="source">
                       <SelectValue placeholder="Ana malzeme seçin" />
