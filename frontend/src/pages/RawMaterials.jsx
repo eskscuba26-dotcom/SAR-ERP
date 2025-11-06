@@ -106,7 +106,7 @@ export default function RawMaterials({ user }) {
 
     autoTable(doc, {
       startY: 20,
-      head: [['Hammadde Adi', 'Kod', 'Birim', 'Mevcut Stok', 'Min. Stok', 'Birim Fiyat (TL)', 'Durum']],
+      head: [['Material Name', 'Code', 'Unit', 'Current Stock', 'Min. Stock', 'Unit Price (TL)', 'Status']],
       body: tableData,
       styles: { fontSize: 9, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
