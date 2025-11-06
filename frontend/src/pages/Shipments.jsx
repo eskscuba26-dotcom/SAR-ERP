@@ -104,7 +104,7 @@ export default function Shipments({ user }) {
     
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
-    doc.text('SAR - Sevkiyat Kayıtları', 14, 15);
+    doc.text('SAR - Sevkiyat Kayitlari', 14, 15);
     
     const tableData = filteredShipments.map(shipment => [
       format(new Date(shipment.shipment_date), 'dd.MM.yyyy', { locale: tr }),
