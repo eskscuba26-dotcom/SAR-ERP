@@ -372,6 +372,16 @@ export default function RawMaterials({ user }) {
             </Card>
           );
         })}
+        {filteredMaterials.length === 0 && materials.length > 0 && (
+          <div className="col-span-full text-center py-8 text-gray-500">
+            Filtreye uygun hammadde bulunamadı.
+          </div>
+        )}
+        {materials.length === 0 && (
+          <div className="col-span-full text-center py-8 text-gray-500">
+            Henüz hammadde kaydı bulunmuyor.
+          </div>
+        )}
       </div>
 
       {/* Stock Transaction Dialog */}
