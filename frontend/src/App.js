@@ -95,6 +95,7 @@ function App() {
                     <Route path="/material-entries" element={<MaterialEntries user={user} />} />
                     <Route path="/cut-production" element={<CutProduction user={user} />} />
                     <Route path="/cost-analysis" element={<CostAnalysis />} />
+                    <Route path="/production-cost-analysis" element={<ProductionCostAnalysis />} />
                     <Route path="/users" element={<Users user={user} />} />
                     <Route path="/user-management" element={<UserManagement />} />
                     <Route path="/profile" element={<ProfilePage />} />
