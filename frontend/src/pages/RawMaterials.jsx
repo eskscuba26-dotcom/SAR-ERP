@@ -248,11 +248,59 @@ export default function RawMaterials({ user }) {
               </form>
             </DialogContent>
           </Dialog>
-        )}
+          )}
+        </div>
       </div>
 
+      {/* Filters */}
+      {showFilters && (
+        <Card className="border-indigo-200 bg-indigo-50">
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-lg">Filtreler</CardTitle>
+              <Button variant="ghost" size="sm" onClick={clearFilters}>
+                <X className="h-4 w-4 mr-1" />
+                Temizle
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <Label>Hammadde Adı</Label>
+                <Input
+                  type="text"
+                  placeholder="Ara..."
+                  value={filters.name}
+                  onChange={(e) => setFilters({...filters, name: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label>Hammadde Kodu</Label>
+                <Input
+                  type="text"
+                  placeholder="Ara..."
+                  value={filters.code}
+                  onChange={(e) => setFilters({...filters, code: e.target.value})}
+                />
+              </div>
+              <div className="flex items-center gap-2 pt-6">
+                <input
+                  type="checkbox"
+                  id="lowStock"
+                  checked={filters.lowStock}
+                  onChange={(e) => setFilters({...filters, lowStock: e.target.checked})}
+                  className="w-4 h-4"
+                />
+                <Label htmlFor="lowStock" className="cursor-pointer">Sadece Düşük Stok</Label>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {materials.map((material) => {
+        {filteredMaterials.map((material) => {
           const isLowStock = material.current_stock <= material.min_stock_level;
           return (
             <Card key={material.id} className="card-hover" data-testid={`material-card-${material.code}`}>
