@@ -411,7 +411,7 @@ export default function Shipments({ user }) {
                     <SelectContent>
                       <SelectItem value="none">Renk Yok</SelectItem>
                       {colors.map((color) => (
-                        <SelectItem key={color.id} value={color.id}>
+                        <SelectItem key={color.id} value={color.id || `color-${color.name}`}>
                           {color.name}
                         </SelectItem>
                       ))}
