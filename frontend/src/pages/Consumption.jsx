@@ -403,7 +403,7 @@ export default function Consumption({ user }) {
                 </tr>
               </thead>
               <tbody>
-                {consumptions.map((consumption, index) => (
+                {filteredConsumptions.map((consumption, index) => (
                   <tr key={consumption.id} className="border-b hover:bg-gray-50" data-testid={`consumption-row-${index}`}>
                     <td className="p-2">{format(new Date(consumption.date), 'dd.MM.yyyy HH:mm', { locale: tr })}</td>
                     <td className="p-2">
