@@ -7,7 +7,38 @@
   "background_color": "#6366f1",
   "theme_color": "#6366f1",
   "orientation": "portrait",
+  "scope": "/",
   "icons": [
+    {
+      "src": "/sar-logo.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sar-logo.png",
+      "sizes": "96x96", 
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sar-logo.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sar-logo.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sar-logo.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/sar-logo.png",
       "sizes": "192x192",
@@ -16,12 +47,20 @@
     },
     {
       "src": "/sar-logo.png", 
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sar-logo.png", 
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "productivity"],
-  "lang": "tr",
-  "dir": "ltr"
+  "categories": ["business", "productivity", "erp", "manufacturing"],
+  "lang": "tr-TR",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "display_override": ["standalone", "minimal-ui"]
 }
