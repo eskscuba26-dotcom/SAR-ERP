@@ -99,7 +99,7 @@ export default function Reports() {
       : 'Tum Veriler';
       
     doc.setFontSize(14);
-    doc.text(`Donem: ${monthName}`, 14, 30);
+    doc.text(`Period: ${monthName}`, 14, 30);
     
     const stats = calculateStats();
     let yPos = 50;
