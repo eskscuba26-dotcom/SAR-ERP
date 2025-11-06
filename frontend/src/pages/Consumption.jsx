@@ -83,7 +83,7 @@ export default function Consumption({ user }) {
     
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
-    doc.text('SAR - Gunluk Tuketim Kayitlari', 14, 15);
+    doc.text('SAR - Daily Consumption Records', 14, 15);
     
     const tableData = filteredConsumptions.map(consumption => [
       format(new Date(consumption.date), 'dd.MM.yyyy', { locale: tr }),
@@ -97,13 +97,13 @@ export default function Consumption({ user }) {
 
     autoTable(doc, {
       startY: 20,
-      head: [['Tarih', 'Makine', 'Petkim (kg)', 'Estol (kg)', 'Talk (kg)', 'Fire (kg)', 'Toplam Petkim']],
+      head: [['Date', 'Machine', 'Petkim (kg)', 'Estol (kg)', 'Talk (kg)', 'Fire (kg)', 'Total Petkim']],
       body: tableData,
       styles: { fontSize: 9, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
     });
 
-    doc.save(`tuketim-kayitlari-${new Date().toLocaleDateString('tr-TR')}.pdf`);
+    doc.save(`consumption-records-${new Date().toLocaleDateString('tr-TR')}.pdf`);
     toast.success('PDF indirildi');
   };
 

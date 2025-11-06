@@ -76,10 +76,10 @@ export default function Stock() {
     
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
-    doc.text('SAR - Stok Durumu', 14, 15);
+    doc.text('SAR - Stock Status', 14, 15);
     
     const tableData = filteredItems.map(item => [
-      item.model && item.model.includes('Kesik') ? 'Kesilmis' : 'Normal',
+      item.model && item.model.includes('Kesik') ? 'Cut' : 'Normal',
       item.thickness_mm || '',
       item.width_cm || '',
       item.length_m || '',
@@ -90,13 +90,13 @@ export default function Stock() {
 
     autoTable(doc, {
       startY: 20,
-      head: [['Tip', 'Kalinlik (mm)', 'En (cm)', 'Metre', 'Renk', 'Toplam Adet', 'Toplam m2']],
+      head: [['Type', 'Thickness (mm)', 'Width (cm)', 'Length (m)', 'Color', 'Total Qty', 'Total m2']],
       body: tableData,
       styles: { fontSize: 8, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
     });
 
-    doc.save(`stok-durumu-${new Date().toLocaleDateString('tr-TR')}.pdf`);
+    doc.save(`stock-status-${new Date().toLocaleDateString('tr-TR')}.pdf`);
     toast.success('PDF indirildi');
   };
 
