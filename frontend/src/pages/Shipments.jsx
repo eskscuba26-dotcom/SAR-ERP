@@ -620,6 +620,11 @@ export default function Shipments({ user }) {
                 ))}
               </tbody>
             </table>
+            {filteredShipments.length === 0 && shipments.length > 0 && (
+              <div className="text-center py-8 text-gray-500">
+                Filtreye uygun sevkiyat kaydı bulunamadı.
+              </div>
+            )}
             {shipments.length === 0 && (
               <div className="text-center py-8 text-gray-500">
                 Henüz sevkiyat kaydı bulunmuyor.
