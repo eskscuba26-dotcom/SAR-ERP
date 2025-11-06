@@ -120,9 +120,9 @@ export default function Shipments({ user }) {
       shipment.driver_name || ''
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 20,
-      head: [['Tarih', 'Alıcı', 'Kalınlık', 'En', 'Metre', 'Renk', 'Adet', 'm²', 'İrsaliye', 'Plaka', 'Şoför']],
+      head: [['Tarih', 'Alici', 'Kalinlik', 'En', 'Metre', 'Renk', 'Adet', 'm2', 'Irsaliye', 'Plaka', 'Sofor']],
       body: tableData,
       styles: { fontSize: 7, font: 'helvetica' },
       headStyles: { fillColor: [79, 70, 229], textColor: 255 }
