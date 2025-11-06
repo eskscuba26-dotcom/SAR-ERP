@@ -472,7 +472,7 @@ export default function CutProduction({ user }) {
                 </tr>
               </thead>
               <tbody>
-                {records.map((record, index) => (
+                {filteredRecords.map((record, index) => (
                   <tr key={record.id} className="border-b hover:bg-purple-50">
                     <td className="p-2">{format(new Date(record.date), 'dd.MM.yyyy', { locale: tr })}</td>
                     <td className="p-2">
