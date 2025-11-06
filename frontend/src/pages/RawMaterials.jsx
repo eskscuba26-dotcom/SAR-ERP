@@ -45,6 +45,10 @@ export default function RawMaterials({ user }) {
     fetchMaterials();
   }, []);
 
+  useEffect(() => {
+    applyFilters();
+  }, [materials, filters]);
+
   const fetchMaterials = async () => {
     try {
       const response = await axios.get(`${API}/raw-materials`);
@@ -54,6 +58,62 @@ export default function RawMaterials({ user }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const applyFilters = () => {
+    let filtered = [...materials];
+
+    if (filters.name) {
+      filtered = filtered.filter(m => m.name.toLowerCase().includes(filters.name.toLowerCase()));
+    }
+    if (filters.code) {
+      filtered = filtered.filter(m => m.code.toLowerCase().includes(filters.code.toLowerCase()));
+    }
+    if (filters.lowStock) {
+      filtered = filtered.filter(m => m.current_stock <= m.min_stock_level);
+    }
+
+    setFilteredMaterials(filtered);
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      name: '',
+      code: '',
+      lowStock: false
+    });
+  };
+
+  const exportToPDF = () => {
+    const doc = new jsPDF('l', 'mm', 'a4');
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text('SAR - Hammadde Stok Listesi', 14, 15);
+    
+    const tableData = filteredMaterials.map(material => {
+      const isLowStock = material.current_stock <= material.min_stock_level;
+      return [
+        material.name || '',
+        material.code || '',
+        material.unit || '',
+        material.current_stock?.toFixed(2) || '0',
+        material.min_stock_level?.toFixed(2) || '0',
+        material.unit_price?.toFixed(2) || '0',
+        isLowStock ? 'Düşük' : 'Normal'
+      ];
+    });
+
+    doc.autoTable({
+      startY: 20,
+      head: [['Hammadde Adı', 'Kod', 'Birim', 'Mevcut Stok', 'Min. Stok', 'Birim Fiyat (TL)', 'Durum']],
+      body: tableData,
+      styles: { fontSize: 9, font: 'helvetica' },
+      headStyles: { fillColor: [79, 70, 229], textColor: 255 }
+    });
+
+    doc.save(`hammadde-listesi-${new Date().toLocaleDateString('tr-TR')}.pdf`);
+    toast.success('PDF indirildi');
   };
 
   const handleSubmit = async (e) => {
