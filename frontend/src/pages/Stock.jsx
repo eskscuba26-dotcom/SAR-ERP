@@ -26,6 +26,10 @@ export default function Stock() {
     fetchStock();
   }, []);
 
+  useEffect(() => {
+    applyFilters();
+  }, [stockItems, filters]);
+
   const fetchStock = async () => {
     try {
       const response = await axios.get(`${API}/stock`);
@@ -39,10 +43,67 @@ export default function Stock() {
     }
   };
 
+  const applyFilters = () => {
+    let filtered = [...stockItems];
+
+    if (filters.thickness) {
+      filtered = filtered.filter(item => item.thickness_mm === parseFloat(filters.thickness));
+    }
+    if (filters.width) {
+      filtered = filtered.filter(item => item.width_cm === parseFloat(filters.width));
+    }
+    if (filters.minQuantity) {
+      filtered = filtered.filter(item => item.total_quantity >= parseInt(filters.minQuantity));
+    }
+    if (filters.maxQuantity) {
+      filtered = filtered.filter(item => item.total_quantity <= parseInt(filters.maxQuantity));
+    }
+
+    setFilteredItems(filtered);
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      thickness: '',
+      width: '',
+      minQuantity: '',
+      maxQuantity: ''
+    });
+  };
+
+  const exportToPDF = () => {
+    const doc = new jsPDF('l', 'mm', 'a4');
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text('SAR - Stok Durumu', 14, 15);
+    
+    const tableData = filteredItems.map(item => [
+      item.model && item.model.includes('Kesik') ? 'Kesilmiş' : 'Normal',
+      item.thickness_mm || '',
+      item.width_cm || '',
+      item.length_m || '',
+      item.color_name || '-',
+      item.total_quantity?.toLocaleString() || '',
+      item.total_square_meters?.toFixed(2) || ''
+    ]);
+
+    doc.autoTable({
+      startY: 20,
+      head: [['Tip', 'Kalınlık (mm)', 'En (cm)', 'Metre', 'Renk', 'Toplam Adet', 'Toplam m²']],
+      body: tableData,
+      styles: { fontSize: 8, font: 'helvetica' },
+      headStyles: { fillColor: [79, 70, 229], textColor: 255 }
+    });
+
+    doc.save(`stok-durumu-${new Date().toLocaleDateString('tr-TR')}.pdf`);
+    toast.success('PDF indirildi');
+  };
+
   const getTotalStats = () => {
-    const totalQuantity = stockItems.reduce((sum, item) => sum + item.total_quantity, 0);
-    const totalSquareMeters = stockItems.reduce((sum, item) => sum + item.total_square_meters, 0);
-    const totalModels = stockItems.length;
+    const totalQuantity = filteredItems.reduce((sum, item) => sum + item.total_quantity, 0);
+    const totalSquareMeters = filteredItems.reduce((sum, item) => sum + item.total_square_meters, 0);
+    const totalModels = filteredItems.length;
     
     return { totalQuantity, totalSquareMeters, totalModels };
   };
