@@ -435,6 +435,9 @@ backend:
         - working: true
           agent: "testing"
           comment: "GET /api/material-entries working correctly. Automatic stock updates when materials are entered into system."
+        - working: true
+          agent: "testing"
+          comment: "URGENT TEST: ✅ POST /api/material-entries working perfectly (9→10 records). New entry created with ID verified in GET response. Stock updates functioning correctly. Backend fully operational."
 
   - task: "Manufacturing Records"
     implemented: true
