@@ -4,7 +4,7 @@
 
 ### **Uygulama URL'si:**
 ```
-https://tam-dosya-okuyucu.preview.emergentagent.com
+https://taskhub-487.preview.emergentagent.com
 ```
 
 ### **Giriş Bilgileri:**
@@ -14,7 +14,7 @@ https://tam-dosya-okuyucu.preview.emergentagent.com
 
 ### **Backend API URL:**
 ```
-https://tam-dosya-okuyucu.preview.emergentagent.com/api
+https://taskhub-487.preview.emergentagent.com/api
 ```
 
 ---
@@ -308,7 +308,7 @@ https://tam-dosya-okuyucu.preview.emergentagent.com/api
 
 ## 🚀 SİSTEMİ KULLANMAYA BAŞLAMA
 
-1. **Tarayıcınızda açın:** https://tam-dosya-okuyucu.preview.emergentagent.com
+1. **Tarayıcınızda açın:** https://taskhub-487.preview.emergentagent.com
 2. **Giriş yapın:** admin / admin123
 3. **Dashboard'u görüntüleyin** - Genel durum özeti
 4. **Sol menüden sayfalar arasında geçiş yapın**

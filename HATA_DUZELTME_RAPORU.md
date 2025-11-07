@@ -63,7 +63,7 @@
 Artık Kesilmiş Üretim sayfasında Ana Malzeme dropdown'ı açıldığında ResizeObserver hatası ÇIKMIYOR. 50 üretim kaydı sorunsuz şekilde listelenip seçilebiliyor.
 
 **Test Etmek İçin:**
-1. https://tam-dosya-okuyucu.preview.emergentagent.com adresine gidin
+1. https://taskhub-487.preview.emergentagent.com adresine gidin
 2. admin / admin123 ile giriş yapın
 3. Sol menüden "Kesilmiş Üretim" sayfasına gidin
 4. "Yeni Kesim Kaydı" butonuna tıklayın
