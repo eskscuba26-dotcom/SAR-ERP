@@ -193,7 +193,13 @@ export default function RawMaterials({ user }) {
             PDF İndir
           </Button>
           {canEdit && (
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <Dialog open={dialogOpen} onOpenChange={(open) => {
+            setDialogOpen(open);
+            if (!open) {
+              setEditingMaterial(null);
+              setFormData({ name: '', code: '', unit: 'kg', unit_price: '', min_stock_level: '' });
+            }
+          }}>
             <DialogTrigger asChild>
               <Button data-testid="add-material-btn">
                 <Plus className="h-4 w-4 mr-2" />
