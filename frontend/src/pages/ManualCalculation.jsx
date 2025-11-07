@@ -82,39 +82,43 @@ export default function ManualCalculation() {
 
   // Ana hesaplamayı yap
   const performMainCalculation = () => {
-    if (!productData.thickness || !productData.width || !productData.quantity || 
-        !productData.petkimPerSqm || !productData.selectedReel ||
+    if (!productData.thickness || !productData.width || !productData.length || 
+        !productData.petkimPerSqm ||
         !productData.generalExpensesPercent || !productData.profitPercent) {
       toast.error('Lütfen tüm alanları doldurun');
       return;
     }
 
     const squareMeters = calculateSquareMeters();
+    if (squareMeters === 0) {
+      toast.error('Metrekare hesaplanamadı');
+      return;
+    }
+
     const petkimGramPerSqm = parseFloat(productData.petkimPerSqm);
     const estolPercent = 0.03; // %3
     const talkPercent = 0.015; // %1.5
+    const gasPercent = 0.04; // %4
     
     // Malzeme tüketimi (kg cinsinden)
     const petkimKg = (petkimGramPerSqm * squareMeters) / 1000;
     const estolKg = petkimKg * estolPercent;
     const talkKg = petkimKg * talkPercent;
-    const totalPetkimKg = petkimKg + (petkimKg * 0.1); // %10 fire payı örnek
+    const gasKg = petkimKg * gasPercent;
     
     // Fiyatlar (TL/kg)
     const petkimPrice = getMaterialPrice('petkim');
     const estolPrice = getMaterialPrice('estol');
     const talkPrice = getMaterialPrice('talk');
     const gasPrice = getMaterialPrice('gaz');
-    const reelPrice = reelPrices[productData.selectedReel] || 0;
     
     // Ham maliyet hesaplama
     const petkimCost = petkimKg * petkimPrice;
     const estolCost = estolKg * estolPrice;
     const talkCost = talkKg * talkPrice;
-    const gasCost = (petkimKg * 0.05) * gasPrice; // %5 gaz kullanımı örnek
-    const reelCost = reelPrice;
+    const gasCost = gasKg * gasPrice;
     
-    const totalRawCost = petkimCost + estolCost + talkCost + gasCost + reelCost;
+    const totalRawCost = petkimCost + estolCost + talkCost + gasCost;
     const costPerSqm = totalRawCost / squareMeters;
     
     // Genel masraf ekleme
@@ -126,6 +130,9 @@ export default function ManualCalculation() {
     const profit = parseFloat(productData.profitPercent);
     const finalCost = costWithExpenses * (1 + profit / 100);
     const finalCostPerSqm = finalCost / squareMeters;
+    
+    // Bir bobin fiyatı (toplam)
+    const bobinPrice = finalCost;
 
     setCalculations({
       squareMeters,
@@ -133,21 +140,20 @@ export default function ManualCalculation() {
         petkimKg: petkimKg.toFixed(3),
         estolKg: estolKg.toFixed(3),
         talkKg: talkKg.toFixed(3),
-        gasKg: (petkimKg * 0.05).toFixed(3),
-        totalPetkimKg: totalPetkimKg.toFixed(3)
+        gasKg: gasKg.toFixed(3)
       },
       costs: {
         petkimCost: petkimCost.toFixed(2),
         estolCost: estolCost.toFixed(2),
         talkCost: talkCost.toFixed(2),
         gasCost: gasCost.toFixed(2),
-        reelCost: reelCost.toFixed(2),
         totalRawCost: totalRawCost.toFixed(2),
         costPerSqm: costPerSqm.toFixed(2),
         costWithExpenses: costWithExpenses.toFixed(2),
         costPerSqmWithExpenses: costPerSqmWithExpenses.toFixed(2),
         finalCost: finalCost.toFixed(2),
-        finalCostPerSqm: finalCostPerSqm.toFixed(2)
+        finalCostPerSqm: finalCostPerSqm.toFixed(2),
+        bobinPrice: bobinPrice.toFixed(2)
       }
     });
     
