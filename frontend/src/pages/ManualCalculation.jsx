@@ -344,7 +344,7 @@ export default function ManualCalculation() {
             {/* Malzeme Tüketimi */}
             <div className="mb-6">
               <h3 className="text-lg font-semibold mb-3">Malzeme Tüketimi ({calculations.squareMeters.toFixed(2)} m²)</h3>
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <div className="text-center p-3 bg-blue-50 rounded-lg">
                   <p className="text-sm text-gray-600">Petkim</p>
                   <p className="font-bold text-blue-600">{calculations.consumption.petkimKg} kg</p>
@@ -358,12 +358,8 @@ export default function ManualCalculation() {
                   <p className="font-bold text-yellow-600">{calculations.consumption.talkKg} kg</p>
                 </div>
                 <div className="text-center p-3 bg-red-50 rounded-lg">
-                  <p className="text-sm text-gray-600">Gaz (%5)</p>
+                  <p className="text-sm text-gray-600">Gaz (%4)</p>
                   <p className="font-bold text-red-600">{calculations.consumption.gasKg} kg</p>
-                </div>
-                <div className="text-center p-3 bg-purple-50 rounded-lg">
-                  <p className="text-sm text-gray-600">Toplam Petkim</p>
-                  <p className="font-bold text-purple-600">{calculations.consumption.totalPetkimKg} kg</p>
                 </div>
               </div>
             </div>
