@@ -365,36 +365,46 @@ export default function RawMaterials({ user }) {
                   </div>
                 </div>
                 {canEdit && (
-                  <div className="flex gap-2">
+                  <>
                     <Button
                       size="sm"
                       variant="outline"
-                      className="flex-1"
-                      onClick={() => {
-                        setSelectedMaterial(material);
-                        setStockData({ ...stockData, transaction_type: 'in' });
-                        setStockDialogOpen(true);
-                      }}
-                      data-testid={`stock-in-btn-${material.code}`}
+                      className="w-full mb-2"
+                      onClick={() => handleEdit(material)}
                     >
-                      <ArrowDown className="h-4 w-4 mr-1 text-green-600" />
-                      Giriş
+                      Düzenle
                     </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="flex-1"
-                      onClick={() => {
-                        setSelectedMaterial(material);
-                        setStockData({ ...stockData, transaction_type: 'out' });
-                        setStockDialogOpen(true);
-                      }}
-                      data-testid={`stock-out-btn-${material.code}`}
-                    >
-                      <ArrowUp className="h-4 w-4 mr-1 text-red-600" />
-                      Çıkış
-                    </Button>
-                  </div>
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() => {
+                          setSelectedMaterial(material);
+                          setStockData({ ...stockData, transaction_type: 'in' });
+                          setStockDialogOpen(true);
+                        }}
+                        data-testid={`stock-in-btn-${material.code}`}
+                      >
+                        <ArrowDown className="h-4 w-4 mr-1 text-green-600" />
+                        Giriş
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() => {
+                          setSelectedMaterial(material);
+                          setStockData({ ...stockData, transaction_type: 'out' });
+                          setStockDialogOpen(true);
+                        }}
+                        data-testid={`stock-out-btn-${material.code}`}
+                      >
+                        <ArrowUp className="h-4 w-4 mr-1 text-red-600" />
+                        Çıkış
+                      </Button>
+                    </div>
+                  </>
                 )}
               </CardContent>
             </Card>
