@@ -54,6 +54,7 @@ export default function RawMaterials({ user }) {
     try {
       const response = await axios.get(`${API}/raw-materials`);
       setMaterials(response.data);
+      setFilteredMaterials(response.data); // Hemen filteredMaterials'ı da güncelle
     } catch (error) {
       toast.error('Hammaddeler yüklenemedi');
     } finally {
