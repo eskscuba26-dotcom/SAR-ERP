@@ -197,6 +197,9 @@ export default function Manufacturing({ user }) {
         toast.success('Üretim kaydı eklendi');
       }
       
+      // Kayıtları hemen yenile
+      await fetchRecords();
+      
       // Tüm state'i temizle
       setEditingRecord(null);
       setDialogOpen(false);
@@ -212,12 +215,8 @@ export default function Manufacturing({ user }) {
         color_material_id: ''
       });
       
-      // Biraz bekle sonra kayıtları yükle
-      setTimeout(() => {
-        fetchRecords();
-      }, 300);
-      
     } catch (error) {
+      console.error('Hata detayı:', error);
       toast.error(error.response?.data?.detail || 'Hata oluştu');
       setDialogOpen(false);
     }
