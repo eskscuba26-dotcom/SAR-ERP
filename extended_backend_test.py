@@ -8,7 +8,7 @@ import json
 from datetime import datetime, timezone
 import sys
 
-BACKEND_URL = "https://manuf-control-1.preview.emergentagent.com/api"
+BACKEND_URL = "https://tam-dosya-okuyucu.preview.emergentagent.com/api"
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin123"
 
