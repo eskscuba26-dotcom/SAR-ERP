@@ -128,6 +128,30 @@ function App() {
 
   return (
     <div className="App">
+      {/* PWA Install Prompt */}
+      {showInstallPrompt && (
+        <div className="fixed top-0 left-0 right-0 bg-indigo-600 text-white p-4 z-50 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src="/sar-logo.png" alt="SAR" className="w-8 h-8 rounded" />
+            <span className="text-sm">SAR ERP'yi ana ekranınıza ekleyin</span>
+          </div>
+          <div className="flex gap-2">
+            <button 
+              onClick={handleInstallClick}
+              className="bg-white text-indigo-600 px-3 py-1 rounded text-sm font-medium hover:bg-gray-100"
+            >
+              Ekle
+            </button>
+            <button 
+              onClick={() => setShowInstallPrompt(false)}
+              className="text-white/80 hover:text-white px-2"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+      
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<LoginPage setUser={setUser} />} />
