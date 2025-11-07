@@ -61,7 +61,7 @@ export default function DashboardLayout({ children, user }) {
   menuItems.push({ path: '/profile', icon: UserIcon, label: 'Profil Ayarları' });
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 overflow-hidden">
       {/* Sidebar */}
       <aside
         className={`${
