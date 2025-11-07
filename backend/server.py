@@ -945,18 +945,23 @@ async def create_gas_consumption(gas_data: DailyGasConsumptionCreate, current_us
 
 @api_router.get("/gas-consumption", response_model=List[DailyGasConsumption])
 async def get_gas_consumption(current_user = Depends(get_current_user)):
-    records = await db.daily_gas_consumption.find({}, {"_id": 0}).sort("consumption_date", -1).to_list(1000)
+    records = await db.daily_gas_consumption.find({}, {"_id": 0}).sort("date", -1).to_list(1000)
+    
+    valid_records = []
     for rec in records:
-        if isinstance(rec['created_at'], str):
+        # created_at dönüşümü
+        if isinstance(rec.get('created_at'), str):
             rec['created_at'] = datetime.fromisoformat(rec['created_at'])
-        if isinstance(rec.get('consumption_date'), str):
-            rec['consumption_date'] = datetime.fromisoformat(rec['consumption_date'])
-        # Eski 'date' alanı varsa consumption_date'e dönüştür
-        if 'date' in rec and 'consumption_date' not in rec:
-            rec['consumption_date'] = rec.pop('date')
-        elif isinstance(rec.get('date'), str):
+        
+        # date dönüşümü
+        if isinstance(rec.get('date'), str):
             rec['date'] = datetime.fromisoformat(rec['date'])
-    return records
+        
+        # Gerekli alanlar var mı kontrol et
+        if 'id' in rec and 'date' in rec and 'total_gas_kg' in rec:
+            valid_records.append(rec)
+    
+    return valid_records
 
 @api_router.put("/gas-consumption/{gas_id}", response_model=DailyGasConsumption)
 async def update_gas_consumption(gas_id: str, gas_data: DailyGasConsumptionCreate, current_user = Depends(get_current_user)):
