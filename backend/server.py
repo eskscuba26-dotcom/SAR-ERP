@@ -945,11 +945,16 @@ async def create_gas_consumption(gas_data: DailyGasConsumptionCreate, current_us
 
 @api_router.get("/gas-consumption", response_model=List[DailyGasConsumption])
 async def get_gas_consumption(current_user = Depends(get_current_user)):
-    records = await db.daily_gas_consumption.find({}, {"_id": 0}).sort("date", -1).to_list(1000)
+    records = await db.daily_gas_consumption.find({}, {"_id": 0}).sort("consumption_date", -1).to_list(1000)
     for rec in records:
         if isinstance(rec['created_at'], str):
             rec['created_at'] = datetime.fromisoformat(rec['created_at'])
-        if isinstance(rec['date'], str):
+        if isinstance(rec.get('consumption_date'), str):
+            rec['consumption_date'] = datetime.fromisoformat(rec['consumption_date'])
+        # Eski 'date' alanı varsa consumption_date'e dönüştür
+        if 'date' in rec and 'consumption_date' not in rec:
+            rec['consumption_date'] = rec.pop('date')
+        elif isinstance(rec.get('date'), str):
             rec['date'] = datetime.fromisoformat(rec['date'])
     return records
 
