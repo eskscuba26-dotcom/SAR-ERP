@@ -202,8 +202,8 @@ export default function RawMaterials({ user }) {
             </DialogTrigger>
             <DialogContent data-testid="add-material-dialog" aria-describedby="material-dialog-description">
               <DialogHeader>
-                <DialogTitle>Yeni Hammadde Ekle</DialogTitle>
-                <p id="material-dialog-description" className="sr-only">Yeni hammadde tanımlamak için formu doldurun</p>
+                <DialogTitle>{editingMaterial ? 'Hammadde Düzenle' : 'Yeni Hammadde Ekle'}</DialogTitle>
+                <p id="material-dialog-description" className="sr-only">{editingMaterial ? 'Hammadde bilgilerini güncelleyin' : 'Yeni hammadde tanımlamak için formu doldurun'}</p>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
