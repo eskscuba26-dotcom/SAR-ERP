@@ -125,6 +125,7 @@ export default function Manufacturing({ user }) {
     try {
       const response = await axios.get(`${API}/manufacturing`);
       setRecords(response.data);
+      setFilteredRecords(response.data); // Hemen filteredRecords'u da güncelle
     } catch (error) {
       toast.error('Üretim kayıtları yüklenemedi');
     } finally {
