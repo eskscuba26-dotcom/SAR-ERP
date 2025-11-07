@@ -70,15 +70,12 @@ export default function ManualCalculation() {
 
   // Metrekare hesaplama
   const calculateSquareMeters = () => {
-    const thickness = parseFloat(productData.thickness);
-    const width = parseFloat(productData.width);
-    const quantity = parseInt(productData.quantity);
+    const width = parseFloat(productData.width); // cm
+    const length = parseFloat(productData.length); // metre
     
-    if (thickness && width && quantity) {
-      // Kalınlık mm, en cm, adet sayısı
-      // Metrekare = (en_cm / 100) * (kalınlık_mm / 1000) * adet * 1000 (m² için)
-      // Basitleştirilmiş: en_cm * kalınlık_mm * adet / 100
-      return (width * thickness * quantity) / 100;
+    if (width && length) {
+      // Metrekare = (en_cm / 100) * boy_metre
+      return (width / 100) * length;
     }
     return 0;
   };
