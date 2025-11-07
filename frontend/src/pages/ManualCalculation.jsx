@@ -12,22 +12,23 @@ import { Calculator, Package, DollarSign, Scissors, ChevronDown, ChevronUp } fro
 export default function ManualCalculation() {
   const [rawMaterials, setRawMaterials] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showCuttingSection, setShowCuttingSection] = useState(false);
   
   // Ana hesaplama verileri
   const [productData, setProductData] = useState({
     thickness: '',
     width: '',
-    quantity: '',
+    length: '', // Boy metre olarak
     petkimPerSqm: '', // gr/m²
-    selectedReel: '',
     generalExpensesPercent: '',
     profitPercent: ''
   });
 
   // Ebatlama verileri
   const [cuttingData, setCuttingData] = useState({
-    cutWidth: '',
-    cutLength: '',
+    thickness: '', // Kalınlık mm
+    cutWidth: '', // En cm
+    cutLength: '', // Boy cm (santimetre)
     generalExpensesPercent: '',
     profitPercent: ''
   });
