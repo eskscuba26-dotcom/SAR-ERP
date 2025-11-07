@@ -66,7 +66,8 @@ export default function DashboardLayout({ children, user }) {
       <aside
         className={`${
           sidebarOpen ? 'w-64' : 'w-20'
-        } bg-white border-r border-gray-200 transition-all duration-300 flex flex-col shadow-sm`}
+        } bg-white border-r border-gray-200 transition-all duration-300 flex flex-col shadow-sm
+        landscape:${sidebarOpen ? 'w-52' : 'w-12'}`}
         data-testid="sidebar"
       >
         <div className="p-4 border-b border-gray-200">
