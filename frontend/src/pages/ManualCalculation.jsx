@@ -398,67 +398,83 @@ export default function ManualCalculation() {
         </Card>
       )}
 
-      {/* Ebatlama Kısmı */}
+      {/* Ebat Hesaplama - Açılır/Kapanır */}
       {calculations && (
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Scissors className="h-5 w-5" />
-              Ebatlama Hesaplama
+          <CardHeader className="cursor-pointer" onClick={() => setShowCuttingSection(!showCuttingSection)}>
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Scissors className="h-5 w-5" />
+                Ebat Hesaplama
+              </div>
+              {showCuttingSection ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>Kesilecek En (cm)</Label>
-                <Input
-                  type="number"
-                  value={cuttingData.cutWidth}
-                  onChange={(e) => setCuttingData({...cuttingData, cutWidth: e.target.value})}
-                  placeholder="Örn: 75"
-                />
+          
+          {showCuttingSection && (
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <Label>Kalınlık (mm)</Label>
+                  <Input
+                    type="number"
+                    step="0.1"
+                    value={cuttingData.thickness}
+                    onChange={(e) => setCuttingData({...cuttingData, thickness: e.target.value})}
+                    placeholder="Örn: 2.0"
+                  />
+                </div>
+                <div>
+                  <Label>En (cm)</Label>
+                  <Input
+                    type="number"
+                    value={cuttingData.cutWidth}
+                    onChange={(e) => setCuttingData({...cuttingData, cutWidth: e.target.value})}
+                    placeholder="Örn: 50"
+                  />
+                </div>
+                <div>
+                  <Label>Boy (cm)</Label>
+                  <Input
+                    type="number"
+                    value={cuttingData.cutLength}
+                    onChange={(e) => setCuttingData({...cuttingData, cutLength: e.target.value})}
+                    placeholder="Örn: 137"
+                  />
+                </div>
               </div>
-              <div>
-                <Label>Kesilecek Boy (cm)</Label>
-                <Input
-                  type="number"
-                  value={cuttingData.cutLength}
-                  onChange={(e) => setCuttingData({...cuttingData, cutLength: e.target.value})}
-                  placeholder="Örn: 100"
-                />
-              </div>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>Genel Masraflar (%)</Label>
-                <Input
-                  type="number"
-                  step="0.1"
-                  value={cuttingData.generalExpensesPercent}
-                  onChange={(e) => setCuttingData({...cuttingData, generalExpensesPercent: e.target.value})}
-                  placeholder="Örn: 15"
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label>Genel Masraflar (%)</Label>
+                  <Input
+                    type="number"
+                    step="0.1"
+                    value={cuttingData.generalExpensesPercent}
+                    onChange={(e) => setCuttingData({...cuttingData, generalExpensesPercent: e.target.value})}
+                    placeholder="Örn: 15"
+                  />
+                </div>
+                <div>
+                  <Label>Kâr Payı (%)</Label>
+                  <Input
+                    type="number"
+                    step="0.1"
+                    value={cuttingData.profitPercent}
+                    onChange={(e) => setCuttingData({...cuttingData, profitPercent: e.target.value})}
+                    placeholder="Örn: 30"
+                  />
+                </div>
               </div>
-              <div>
-                <Label>Kâr Payı (%)</Label>
-                <Input
-                  type="number"
-                  step="0.1"
-                  value={cuttingData.profitPercent}
-                  onChange={(e) => setCuttingData({...cuttingData, profitPercent: e.target.value})}
-                  placeholder="Örn: 30"
-                />
-              </div>
-            </div>
 
-            <div className="text-center pt-4">
-              <Button onClick={performCuttingCalculation} size="lg" className="w-full md:w-auto">
-                <Scissors className="h-5 w-5 mr-2" />
-                Ebatlama Hesapla
-              </Button>
-            </div>
-          </CardContent>
+              <div className="text-center pt-4">
+                <Button onClick={performCuttingCalculation} size="lg" className="w-full md:w-auto">
+                  <Scissors className="h-5 w-5 mr-2" />
+                  Ebat Hesapla
+                </Button>
+              </div>
+            </CardContent>
+          )}
         </Card>
       )}
 
