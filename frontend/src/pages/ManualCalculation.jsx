@@ -256,7 +256,7 @@ export default function ManualCalculation() {
                 step="0.1"
                 value={productData.thickness}
                 onChange={(e) => setProductData({...productData, thickness: e.target.value})}
-                placeholder="Örn: 2.5"
+                placeholder="Örn: 2.0"
               />
             </div>
             <div>
@@ -269,40 +269,27 @@ export default function ManualCalculation() {
               />
             </div>
             <div>
-              <Label>Adet</Label>
+              <Label>Boy (metre)</Label>
               <Input
                 type="number"
-                value={productData.quantity}
-                onChange={(e) => setProductData({...productData, quantity: e.target.value})}
-                placeholder="Örn: 1000"
+                step="0.01"
+                value={productData.length}
+                onChange={(e) => setProductData({...productData, length: e.target.value})}
+                placeholder="Örn: 300"
               />
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             <div>
-              <Label>Petkim Metrekareye Düşen Gram (gr/m²)</Label>
+              <Label>Petkim Miktarı (gr/m²)</Label>
               <Input
                 type="number"
                 value={productData.petkimPerSqm}
                 onChange={(e) => setProductData({...productData, petkimPerSqm: e.target.value})}
-                placeholder="Örn: 2500"
+                placeholder="Metrekareye düşen petkim miktarını gram olarak girin"
               />
-            </div>
-            <div>
-              <Label>Masura Tipi</Label>
-              <Select value={productData.selectedReel} onValueChange={(value) => setProductData({...productData, selectedReel: value})}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Masura seçin" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(reelPrices).map(([reel, price]) => (
-                    <SelectItem key={reel} value={reel}>
-                      {reel} - {price.toFixed(2)} TL
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <p className="text-xs text-gray-500 mt-1">* Otomatik olarak Estol (%3), Talk (%1.5) ve Gaz (%4) hesaplanacak</p>
             </div>
           </div>
 
