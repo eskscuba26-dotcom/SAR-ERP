@@ -4,10 +4,11 @@
   "description": "SAR Ambalaj İmalat Yönetim Platformu",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#6366f1",
+  "background_color": "#6366f1", 
   "theme_color": "#6366f1",
   "orientation": "any",
   "scope": "/",
+  "id": "/",
   "icons": [
     {
       "src": "/sar-logo.png",
@@ -62,5 +63,20 @@
   "lang": "tr-TR",
   "dir": "ltr",
   "prefer_related_applications": false,
-  "display_override": ["standalone", "minimal-ui"]
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "iarc_rating_id": "",
+  "screenshots": [
+    {
+      "src": "/sar-logo.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/sar-logo.png", 
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
 }
