@@ -411,6 +411,9 @@ backend:
         - working: true
           agent: "testing"
           comment: "Admin login (admin/admin123) working correctly. Token generation and validation successful. JWT authentication properly implemented."
+        - working: true
+          agent: "testing"
+          comment: "URGENT TEST: ✅ User login (mehmet/141413DOa.) working correctly. Token generation successful, all authenticated endpoints accessible with valid token."
 
   - task: "Raw Materials Management"
     implemented: true
