@@ -86,6 +86,10 @@ export default function MaterialEntries({ user }) {
         toast.success('Hammadde girişi kaydedildi ve stok güncellendi');
       }
       
+      // Kayıtları hemen yenile
+      await fetchEntries();
+      await fetchMaterials(); // Stokları yenile
+      
       setDialogOpen(false);
       setEditingEntry(null);
       setFormData({
@@ -98,9 +102,8 @@ export default function MaterialEntries({ user }) {
         supplier: '',
         invoice_number: ''
       });
-      fetchEntries();
-      fetchMaterials(); // Stokları yenile
     } catch (error) {
+      console.error('Hata detayı:', error);
       toast.error(error.response?.data?.detail || 'Hata oluştu');
     }
   };
