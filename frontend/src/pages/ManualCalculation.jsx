@@ -479,20 +479,16 @@ export default function ManualCalculation() {
       )}
 
       {/* Ebatlama Sonuçları */}
-      {cuttingCalculations && (
+      {cuttingCalculations && showCuttingSection && (
         <Card>
           <CardHeader>
-            <CardTitle>Ebatlama Hesaplama Sonuçları</CardTitle>
+            <CardTitle>Ebat Hesaplama Sonuçları</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               <div className="flex justify-between p-3 bg-gray-50 rounded">
                 <span>Bir Parça Metrekaresi</span>
                 <span className="font-bold">{cuttingCalculations.pieceSquareMeters} m²</span>
-              </div>
-              <div className="flex justify-between p-3 bg-gray-50 rounded">
-                <span>Ana Parçadan Çıkan Toplam Parça Adeti</span>
-                <span className="font-bold">{cuttingCalculations.piecesPerSource} adet</span>
               </div>
               <div className="flex justify-between p-3 bg-gray-50 rounded">
                 <span>Ham Maliyet / Parça</span>
@@ -503,12 +499,8 @@ export default function ManualCalculation() {
                 <span className="font-bold text-blue-600">{cuttingCalculations.costWithExpenses} TL</span>
               </div>
               <div className="flex justify-between p-3 bg-green-100 rounded border-2 border-green-200">
-                <span className="font-semibold">Bir Parça Final Fiyat (+ %{cuttingData.profitPercent} Kâr)</span>
-                <span className="font-bold text-green-600 text-xl">{cuttingCalculations.finalPiecePrice} TL</span>
-              </div>
-              <div className="flex justify-between p-3 bg-purple-100 rounded border-2 border-purple-200">
-                <span className="font-semibold">Toplam Satış Değeri ({cuttingCalculations.piecesPerSource} parça)</span>
-                <span className="font-bold text-purple-600 text-2xl">{cuttingCalculations.totalSalesValue} TL</span>
+                <span className="font-semibold text-lg">Bir Parça TL Karşılığı (+ %{cuttingData.profitPercent} Kâr)</span>
+                <span className="font-bold text-green-600 text-2xl">{cuttingCalculations.finalPiecePrice} TL</span>
               </div>
             </div>
           </CardContent>
