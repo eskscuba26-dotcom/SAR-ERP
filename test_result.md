@@ -447,6 +447,9 @@ backend:
         - working: true
           agent: "testing"
           comment: "GET /api/manufacturing working correctly. Square meter calculations are accurate (tested 120cm x 10m x 50 pieces = 600 m²). Model descriptions generated properly."
+        - working: true
+          agent: "testing"
+          comment: "URGENT USER ISSUE TESTED: User (mehmet) reported records not showing after adding. Comprehensive test performed: ✅ POST /api/manufacturing successfully creates records (63→64, verified new record ID in response and GET list) ✅ GET /api/manufacturing returns all records including newly added ✅ Database persistence confirmed ✅ Backend logs show successful 200 OK responses. Backend is working perfectly. Issue is frontend-related (likely caching or state management)."
 
   - task: "Daily Consumptions"
     implemented: true
