@@ -19,6 +19,7 @@ export default function RawMaterials({ user }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [stockDialogOpen, setStockDialogOpen] = useState(false);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
+  const [editingMaterial, setEditingMaterial] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState({
     name: '',
