@@ -423,6 +423,9 @@ backend:
         - working: true
           agent: "testing"
           comment: "GET /api/raw-materials and POST /api/raw-materials working correctly. Material creation, stock tracking, and retrieval all functional."
+        - working: true
+          agent: "testing"
+          comment: "URGENT TEST: ✅ POST /api/raw-materials working perfectly (9→10 records). New material created with unique code, ID verified in GET response. All CRUD operations functional."
 
   - task: "Material Entries System"
     implemented: true
