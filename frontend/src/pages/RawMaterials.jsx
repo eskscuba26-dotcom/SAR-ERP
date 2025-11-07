@@ -134,11 +134,14 @@ export default function RawMaterials({ user }) {
         toast.success('Hammadde eklendi');
       }
 
+      // Kayıtları hemen yenile
+      await fetchMaterials();
+      
       setDialogOpen(false);
       setEditingMaterial(null);
       setFormData({ name: '', code: '', unit: 'kg', unit_price: '', min_stock_level: '' });
-      fetchMaterials();
     } catch (error) {
+      console.error('Hata detayı:', error);
       toast.error(error.response?.data?.detail || 'Hata oluştu');
     }
   };
