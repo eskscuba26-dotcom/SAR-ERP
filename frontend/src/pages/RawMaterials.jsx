@@ -120,18 +120,39 @@ export default function RawMaterials({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${API}/raw-materials`, {
+      const payload = {
         ...formData,
         unit_price: parseFloat(formData.unit_price),
         min_stock_level: parseFloat(formData.min_stock_level)
-      });
-      toast.success('Hammadde eklendi');
+      };
+
+      if (editingMaterial) {
+        await axios.put(`${API}/raw-materials/${editingMaterial.id}`, payload);
+        toast.success('Hammadde güncellendi');
+      } else {
+        await axios.post(`${API}/raw-materials`, payload);
+        toast.success('Hammadde eklendi');
+      }
+
       setDialogOpen(false);
+      setEditingMaterial(null);
       setFormData({ name: '', code: '', unit: 'kg', unit_price: '', min_stock_level: '' });
       fetchMaterials();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Hata oluştu');
     }
+  };
+
+  const handleEdit = (material) => {
+    setEditingMaterial(material);
+    setFormData({
+      name: material.name,
+      code: material.code,
+      unit: material.unit,
+      unit_price: material.unit_price.toString(),
+      min_stock_level: material.min_stock_level.toString()
+    });
+    setDialogOpen(true);
   };
 
   const handleStockTransaction = async (e) => {
