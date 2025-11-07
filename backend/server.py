@@ -608,6 +608,42 @@ async def get_raw_material(material_id: str, current_user = Depends(get_current_
         material['created_at'] = datetime.fromisoformat(material['created_at'])
     return RawMaterial(**material)
 
+@api_router.put("/raw-materials/{material_id}", response_model=RawMaterial)
+async def update_raw_material(material_id: str, material_data: RawMaterialCreate, current_user = Depends(get_current_user)):
+    if current_user['role'] not in ['admin', 'user']:
+        raise HTTPException(status_code=403, detail="Permission denied")
+    
+    existing = await db.raw_materials.find_one({"id": material_id})
+    if not existing:
+        raise HTTPException(status_code=404, detail="Material not found")
+    
+    # Güncelleme verisi
+    update_data = material_data.model_dump()
+    
+    await db.raw_materials.update_one(
+        {"id": material_id},
+        {"$set": update_data}
+    )
+    
+    # Güncellenmiş kaydı döndür
+    updated_material = await db.raw_materials.find_one({"id": material_id}, {"_id": 0})
+    
+    if isinstance(updated_material['created_at'], str):
+        updated_material['created_at'] = datetime.fromisoformat(updated_material['created_at'])
+    
+    return RawMaterial(**updated_material)
+
+@api_router.delete("/raw-materials/{material_id}")
+async def delete_raw_material(material_id: str, current_user = Depends(get_current_user)):
+    if current_user['role'] != 'admin':
+        raise HTTPException(status_code=403, detail="Only admins can delete materials")
+    
+    result = await db.raw_materials.delete_one({"id": material_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Material not found")
+    
+    return {"message": "Material deleted successfully"}
+
 # Stock Transaction Routes
 @api_router.post("/stock-transactions", response_model=StockTransaction)
 async def create_stock_transaction(transaction_data: StockTransactionCreate, current_user = Depends(get_current_user)):
