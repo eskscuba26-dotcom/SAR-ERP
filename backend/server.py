@@ -1117,6 +1117,36 @@ async def update_material_entry(entry_id: str, entry_data: MaterialEntryCreate, 
     )
     
     # Hammadde bilgisini al
+    material = await db.raw_materials.find_one({"id": entry_data.material_id})
+    
+    # Güncelleme verisi
+    update_data = {
+        "entry_date": entry_data.entry_date,
+        "material_id": entry_data.material_id,
+        "material_name": material['name'] if material else "",
+        "quantity": entry_data.quantity,
+        "currency": entry_data.currency,
+        "unit_price": entry_data.unit_price,
+        "total_amount": entry_data.total_amount,
+        "supplier": entry_data.supplier,
+        "invoice_number": entry_data.invoice_number
+    }
+    
+    await db.material_entries.update_one(
+        {"id": entry_id},
+        {"$set": update_data}
+    )
+    
+    # Güncellenmiş kaydı döndür
+    updated_entry = await db.material_entries.find_one({"id": entry_id}, {"_id": 0})
+    
+    # Tarih dönüşümü
+    if isinstance(updated_entry['entry_date'], str):
+        updated_entry['entry_date'] = datetime.fromisoformat(updated_entry['entry_date'])
+    if isinstance(updated_entry['created_at'], str):
+        updated_entry['created_at'] = datetime.fromisoformat(updated_entry['created_at'])
+    
+    return updated_entry
 
 
 # Cut Production Records (Kesilmiş Üretim Kayıtları)
