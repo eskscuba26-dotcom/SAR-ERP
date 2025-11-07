@@ -67,8 +67,26 @@ function ProtectedRoute({ children }) {
 function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
 
   useEffect(() => {
+    // PWA Install Prompt Handler
+    const handleBeforeInstallPrompt = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallPrompt(true);
+    };
+
+    const handleAppInstalled = () => {
+      setShowInstallPrompt(false);
+      setDeferredPrompt(null);
+    };
+
+    // Listen for PWA install events
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
     // Simulate app initialization
     const initializeApp = async () => {
       // Show loading for at least 2 seconds for smooth UX
@@ -83,7 +101,25 @@ function App() {
     };
 
     initializeApp();
+
+    // Cleanup event listeners
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
   }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      
+      if (outcome === 'accepted') {
+        setShowInstallPrompt(false);
+        setDeferredPrompt(null);
+      }
+    }
+  };
 
   // Show loading screen during app initialization
   if (isLoading) {
