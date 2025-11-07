@@ -369,7 +369,7 @@ export default function ManualCalculation() {
               <h3 className="text-lg font-semibold mb-3">Maliyet Özeti</h3>
               <div className="space-y-3">
                 <div className="flex justify-between p-3 bg-gray-50 rounded">
-                  <span>Ham Maliyet (Hammadde + Masura)</span>
+                  <span>Ham Maliyet (Hammaddeler)</span>
                   <span className="font-bold">{calculations.costs.totalRawCost} TL</span>
                 </div>
                 <div className="flex justify-between p-3 bg-gray-50 rounded">
@@ -385,12 +385,12 @@ export default function ManualCalculation() {
                   <span className="font-bold text-blue-600">{calculations.costs.costPerSqmWithExpenses} TL/m²</span>
                 </div>
                 <div className="flex justify-between p-3 bg-green-100 rounded border-2 border-green-200">
-                  <span className="font-semibold">Final Fiyat (+ %{productData.profitPercent} Kâr)</span>
-                  <span className="font-bold text-green-600 text-xl">{calculations.costs.finalCost} TL</span>
+                  <span className="font-semibold text-lg">Metrekare Fiyatı (+ %{productData.profitPercent} Kâr)</span>
+                  <span className="font-bold text-green-600 text-2xl">{calculations.costs.finalCostPerSqm} TL/m²</span>
                 </div>
-                <div className="flex justify-between p-3 bg-green-100 rounded border-2 border-green-200">
-                  <span className="font-semibold">Final Metrekare Fiyatı</span>
-                  <span className="font-bold text-green-600 text-xl">{calculations.costs.finalCostPerSqm} TL/m²</span>
+                <div className="flex justify-between p-3 bg-purple-100 rounded border-2 border-purple-200">
+                  <span className="font-semibold text-lg">Bir Bobin (Top) Fiyatı</span>
+                  <span className="font-bold text-purple-600 text-2xl">{calculations.costs.bobinPrice} TL</span>
                 </div>
               </div>
             </div>
