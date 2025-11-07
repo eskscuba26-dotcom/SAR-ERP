@@ -162,25 +162,23 @@ export default function ManualCalculation() {
 
   // Ebatlama hesaplama
   const performCuttingCalculation = () => {
-    if (!calculations || !cuttingData.cutWidth || !cuttingData.cutLength ||
+    if (!calculations || !cuttingData.thickness || !cuttingData.cutWidth || !cuttingData.cutLength ||
         !cuttingData.generalExpensesPercent || !cuttingData.profitPercent) {
-      toast.error('Önce ana hesaplamayı yapın ve ebatlama bilgilerini girin');
+      toast.error('Önce ana hesaplamayı yapın ve tüm ebatlama bilgilerini girin');
       return;
     }
 
-    const sourceWidth = parseFloat(productData.width); // cm
-    const sourceThickness = parseFloat(productData.thickness); // mm
     const cutWidth = parseFloat(cuttingData.cutWidth); // cm
     const cutLength = parseFloat(cuttingData.cutLength); // cm
     
     // Bir parça metrekaresi
     const pieceSquareMeters = (cutWidth * cutLength) / 10000; // cm² to m²
     
-    // Ana parçadan çıkan parça sayısı
-    const piecesPerSource = Math.floor((sourceWidth * sourceThickness) / (cutWidth * cutLength)) * parseInt(productData.quantity);
+    // Metrekare başı maliyeti kullan (ana hesaplamadan)
+    const costPerSqmWithExpenses = parseFloat(calculations.costs.costPerSqmWithExpenses);
     
-    // Ham maliyet/parça
-    const rawCostPerPiece = parseFloat(calculations.costs.totalRawCost) / piecesPerSource;
+    // Bir parça ham maliyet
+    const rawCostPerPiece = pieceSquareMeters * costPerSqmWithExpenses;
     
     // Genel masraf ekleme
     const generalExpenses = parseFloat(cuttingData.generalExpensesPercent);
@@ -189,17 +187,12 @@ export default function ManualCalculation() {
     // Kâr payı ekleme
     const profit = parseFloat(cuttingData.profitPercent);
     const finalPiecePrice = costWithExpenses * (1 + profit / 100);
-    
-    // Toplam satış değeri
-    const totalSalesValue = finalPiecePrice * piecesPerSource;
 
     setCuttingCalculations({
       pieceSquareMeters: pieceSquareMeters.toFixed(4),
-      piecesPerSource,
-      rawCostPerPiece: rawCostPerPiece.toFixed(4),
-      costWithExpenses: costWithExpenses.toFixed(4),
-      finalPiecePrice: finalPiecePrice.toFixed(4),
-      totalSalesValue: totalSalesValue.toFixed(2)
+      rawCostPerPiece: rawCostPerPiece.toFixed(2),
+      costWithExpenses: costWithExpenses.toFixed(2),
+      finalPiecePrice: finalPiecePrice.toFixed(2)
     });
     
     toast.success('Ebatlama hesaplama tamamlandı');
